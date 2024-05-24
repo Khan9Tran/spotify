@@ -1,9 +1,9 @@
 buid:
-	@go build -o bin/server cmd/main.go
+	@go build -o bin/spotify cmd/main.go
 test:
 	@go test -v ./...
 run: buid
-	@./bin/server
+	@./bin/spotify
 migration:
 	@migrate create -ext sql -dir cmd/migrate/migrations $(filter-out $@, $(MAKECMDGOALS))
 migrate-up:
