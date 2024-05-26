@@ -5,7 +5,7 @@ import (
     "time"
 )
 
-type User struct {
+type Users struct {
     gorm.Model
     Name        string `gorm:"type:varchar(100);not null"`
     Slug        string `gorm:"type:varchar(100);not null;unique"`
@@ -14,4 +14,5 @@ type User struct {
     Gender      string `gorm:"type:varchar(10)"`
     AccountID   uint `gorm:"not null"`
     Account Account `gorm:"foreignKey:AccountID;references:ID"`
+    Artists     []Artist `gorm:"many2many:follows"`
 }
