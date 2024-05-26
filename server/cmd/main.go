@@ -5,6 +5,7 @@ import (
 	"spotify/cmd/api"
 	"spotify/config"
 	"spotify/db"
+	"spotify/internal/models"
 
 	"gorm.io/gorm"
 )
@@ -36,7 +37,7 @@ func initStorage(db *gorm.DB){
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	db.AutoMigrate(&models.Account{}, &models.User{})
 	log.Println("Database connected")
 }
 
