@@ -15,4 +15,5 @@ type Users struct {
     AccountID   uint `gorm:"not null"`
     Account Account `gorm:"foreignKey:AccountID;references:ID"`
     Artists     []Artist `gorm:"many2many:follows"`
+    Song       []Song `gorm:"many2many:listening_histories"`
 }

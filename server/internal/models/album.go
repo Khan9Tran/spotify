@@ -14,4 +14,5 @@ type Album struct {
 	ReleaseDate time.Time `gorm:"not null"`
 	Description string `gorm:"type:text;"`
 	Artist Artist `gorm:"foreignKey:MainArtistID;references:ID"`
+	Songs []Song `gorm:"many2many:album_tracks"`
 }

@@ -15,4 +15,5 @@ type Song struct{
 	ReleaseDate time.Time
 	Lyrics string `gorm:"type:text;"`
 	Artist []Artist `gorm:"many2many:performs_on_songs"`
+	Users []Users `gorm:"many2many:reviews"`
 }
