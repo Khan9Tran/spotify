@@ -33,11 +33,15 @@ func initStorage(db *gorm.DB){
 	defer dbSQL.Close()
 
 	err = dbSQL.Ping()
-
 	if err != nil {
 		log.Fatal(err)
 	}
-	db.AutoMigrate(&models.Account{}, &models.User{})
+
+	err = db.AutoMigrate(&models.Account{}, &models.User{}, &models.Artist{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	
 	log.Println("Database connected")
 }
 
