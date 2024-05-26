@@ -11,8 +11,8 @@ import (
 )
 
 func main() {
-	dsn := "host=" + config.Envs.DBHost+ " user=" + config.Envs.DBUser + " password=" + config.Envs.DBPassword + " dbname=" + config.Envs.DBName+ " port=" + config.Envs.DBPort + " sslmode=disable TimeZone=Asia/Shanghai"
-	db, err := db.NewPostgreSQLStorage(dsn)
+
+	db, err := db.NewPostgreSQLStorage(config.NewDsn(config.Envs.DBHost, config.Envs.DBUser, config.Envs.DBPassword, config.Envs.DBName, config.Envs.DBPort))
 
 	if err != nil {
 		log.Fatal(err)
