@@ -30,8 +30,7 @@ func initStorage(db *gorm.DB){
 	dbSQL, err := db.DB()
 	if err != nil {
 		log.Fatal(err)}
-	defer dbSQL.Close()
-
+	
 	err = dbSQL.Ping()
 	if err != nil {
 		log.Fatal(err)

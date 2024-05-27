@@ -16,15 +16,17 @@ func NewUserRepository(db *gorm.DB) *userRepository {
 }
 
 func (r *userRepository) CreateAccount(ctx context.Context, account *models.Account) error {
-	return r.db.Create(account).Error
+	return r.db.WithContext(ctx).Create(account).Error
 }
 
 func (r *userRepository) CreateUser(ctx context.Context, u *models.Users) error {
-	return r.db.Create(u).Error
+	return r.db.WithContext(ctx).Create(u).Error
 }
 
-func (r *userRepository) GetUserByEmail(ctx context.Context, email string) (*models.Users, error) {
-	var user models.Users
-	err := r.db.Where("email = ?", email).First(&user).Error
-	return &user, err
+func (r *userRepository) GetAccountByEmail(ctx context.Context, email string) (*models.Account, error) {
+	var account models.Account
+	if err := r.db.WithContext(ctx).Where(&models.Account{Email:email,}).First(&account).Error; err != nil {
+		return nil, err
+	}
+	return &account, nil
 }

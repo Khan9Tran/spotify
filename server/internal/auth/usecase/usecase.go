@@ -19,7 +19,7 @@ func NewAuthUseCase(authRepo auth.UserRepo) *AuthUseCase {
 }
 
 func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPassword, name string) error {
-	_, err := a.authRepo.GetUserByEmail(ctx,email)
+	_, err := a.authRepo.GetAccountByEmail(ctx,email)
 	if err == nil {
 		return fmt.Errorf(auth.ErrUserExisted.Error())
 	}
