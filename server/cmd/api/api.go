@@ -2,9 +2,7 @@ package api
 
 import (
 	"log"
-	authHttp "spotify/internal/auth/delivery/http"
-	"spotify/internal/auth/repository"
-	"spotify/internal/auth/usecase"
+	"spotify/internal/server"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -25,14 +23,8 @@ func NewAPIServer(addr string, db *gorm.DB) *APIServer {
 func (s *APIServer) Run() error {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
-	v1 := router.Group("/v1")
-	authGroup := v1.Group("/auth")
-
-	authRepo := repository.NewUserRepository(s.db)
-	authUseCase := usecase.NewAuthUseCase(authRepo)
-	authHandler := authHttp.NewAuthHandler(authUseCase)
-	authHttp.MapAuthRoutes(authGroup, authHandler)
+	serverAPI := server.NewMapHandler(router, s.db)
+	serverAPI.Map()
 	log.Println("Listening on", s.addr)
-
 	return router.Run(s.addr)
 }
