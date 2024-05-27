@@ -10,8 +10,8 @@ services:
     ports:
       - "5433:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: tlnKhan9
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
       POSTGRES_DB: music
 
   api:
@@ -25,8 +25,8 @@ services:
       - "8080:8080"
     environment:
       DB_HOST: db
-      DB_USER: postgres
-      DB_PASSWORD: tlnKhan9
+      DB_USER: admin
+      DB_PASSWORD: admin
       DB_NAME: music
       DB_PORT: 5432
     links:

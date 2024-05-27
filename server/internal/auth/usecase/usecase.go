@@ -46,6 +46,7 @@ func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPass
 	return nil
 }
 
-func (a *AuthUseCase) Login(email, password string) error {
-	return nil
+
+func (a *AuthUseCase) Login(ctx context.Context, email, password string) (token string, err error) {
+	return "", nil
 }
