@@ -1,5 +1,6 @@
 package usecase
 
+
 type AuthUseCase struct {
 }
 
@@ -8,6 +9,9 @@ func NewAuthUseCase() *AuthUseCase {
 }
 
 func (a *AuthUseCase) Register(email, password, conformPassword string) error {
-	// Register logic
+	return nil
+}
+
+func (a *AuthUseCase) Login(email, password string) error {
 	return nil
 }

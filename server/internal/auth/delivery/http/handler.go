@@ -19,3 +19,9 @@ func (h *authHandler) Register() gin.HandlerFunc {
 		c.JSON(200, gin.H{"message": "success"})
 	}
 }
+
+func (h *authHandler) Login() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "success"})
+	}
+}

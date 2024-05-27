@@ -1,10 +1,12 @@
 package authHttp
 
 import (
-	"github.com/gin-gonic/gin"
 	"spotify/internal/auth"
+
+	"github.com/gin-gonic/gin"
 )
 
 func MapAuthRoutes(authGroup *gin.RouterGroup, handler auth.Handler) {
 	authGroup.POST("/register", handler.Register())
+	authGroup.POST("/login", handler.Login())
 }
