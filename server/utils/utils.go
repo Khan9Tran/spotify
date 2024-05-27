@@ -29,7 +29,7 @@ func WriteError(w http.ResponseWriter, status int, err error) {
 	json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
 }
 
-func createSlug(name string, id uint) string {
+func CreateSlug(name string, id uint) string {
     // Create a slug from the name
     nameSlug := slug.Make(name)
 

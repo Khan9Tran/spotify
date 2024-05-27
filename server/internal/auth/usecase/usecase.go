@@ -6,6 +6,7 @@ import (
 	"spotify/internal/auth"
 	"spotify/internal/models"
 	"spotify/internal/security"
+	"spotify/utils"
 )
 
 
@@ -37,7 +38,8 @@ func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPass
 		return fmt.Errorf(auth.ErrInternalServer.Error())
 	}
 
-	if err := a.authRepo.CreateUser(ctx, &models.Users{Name:name, AccountID:account.ID}); err != nil {
+
+	if err := a.authRepo.CreateUser(ctx, &models.Users{Name:name, AccountID:account.ID, Slug: utils.CreateSlug(name, account.ID)}); err != nil {
 		return fmt.Errorf(auth.ErrInternalServer.Error())
 	}
 
