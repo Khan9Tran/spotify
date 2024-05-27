@@ -3,10 +3,8 @@ package usecase
 import (
 	"context"
 	"fmt"
-	"hash"
-	"net/http"
-	"os/user"
 	"spotify/internal/auth"
+	"spotify/internal/models"
 	"spotify/internal/security"
 )
 
@@ -19,9 +17,9 @@ func NewAuthUseCase(authRepo auth.UserRepo) *AuthUseCase {
 	return &AuthUseCase{authRepo: authRepo}
 }
 
-func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPassword string) error {
+func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPassword, name string) error {
 	_, err := a.authRepo.GetUserByEmail(ctx,email)
-	if err != nil {
+	if err == nil {
 		return fmt.Errorf(auth.ErrUserExisted.Error())
 	}
 
@@ -34,7 +32,15 @@ func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPass
 		return fmt.Errorf(auth.ErrInternalServer.Error())
 	}
 	
-	user := &user.Users{}
+	account := &models.Account{Email:email, Password:hashPassword}
+	if err := a.authRepo.CreateAccount(ctx, account); err != nil {
+		return fmt.Errorf(auth.ErrInternalServer.Error())
+	}
+
+	if err := a.authRepo.CreateUser(ctx, &models.Users{Name:name, AccountID:account.ID}); err != nil {
+		return fmt.Errorf(auth.ErrInternalServer.Error())
+	}
+
 	return nil
 }
 

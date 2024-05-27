@@ -1,11 +1,13 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 	"log"
 	authHttp "spotify/internal/auth/delivery/http"
+	"spotify/internal/auth/repository"
 	"spotify/internal/auth/usecase"
+
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type APIServer struct {
@@ -26,7 +28,8 @@ func (s *APIServer) Run() error {
 	v1 := router.Group("/v1")
 	authGroup := v1.Group("/auth")
 
-	authUseCase := usecase.NewAuthUseCase()
+	authRepo := repository.NewUserRepository(s.db)
+	authUseCase := usecase.NewAuthUseCase(authRepo)
 	authHandler := authHttp.NewAuthHandler(authUseCase)
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 	log.Println("Listening on", s.addr)

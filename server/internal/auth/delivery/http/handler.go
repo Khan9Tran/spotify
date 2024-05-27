@@ -34,10 +34,12 @@ func (h *authHandler) Register() gin.HandlerFunc {
 			return
 		}
 
-		if err:= h.userCase.Register(&gin.Context{}, registerPayload.Email, registerPayload.Password, registerPayload.ConfirmPassword); err != nil {
+		if err:= h.userCase.Register(&gin.Context{}, registerPayload.Email, registerPayload.Password, registerPayload.ConfirmPassword, registerPayload.Name); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
+		
+		c.JSON(http.StatusOK, gin.H{"message": "success"})
 	}
 }
 
