@@ -28,8 +28,8 @@ func initConfig() Config{
 	return Config{
 		PublicHost: getEnv("PUBLIC_HOST", "http://localhost"),
 		Port: getEnv("PORT", "8080"),
-		DBUser: getEnv("DB_USER", "postgres"),
-		DBPassword: getEnv("DB_PASSWORD", "tlnKhan9"),
+		DBUser: getEnv("DB_USER", "admin"),
+		DBPassword: getEnv("DB_PASSWORD", "admin"),
 		DBPort: getEnv("DB_PORT", "5432"),
 		DBHost: getEnv("DB_HOST", "localhost"),
 		DBName: getEnv("DB_NAME", "music"),

@@ -1,5 +1,6 @@
 package usecase
 
+import "context"
 
 type AuthUseCase struct {
 }
@@ -12,6 +13,6 @@ func (a *AuthUseCase) Register(email, password, conformPassword string) error {
 	return nil
 }
 
-func (a *AuthUseCase) Login(email, password string) error {
-	return nil
+func (a *AuthUseCase) Login(ctx context.Context, email, password string) (token string, err error) {
+	return "", nil
 }
