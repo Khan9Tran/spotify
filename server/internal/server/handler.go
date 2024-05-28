@@ -21,8 +21,9 @@ func (mh *MapHandler) Map() {
 	v1 := mh.router.Group("/v1")
 	authGroup := v1.Group("/auth")
 
-	authRepo := repository.NewUserRepository(mh.db)
-	authUseCase := usecase.NewAuthUseCase(authRepo)
+	accountRepo := repository.NewAccountRepository(mh.db)
+	userRepo := repository.NewUserRepository(mh.db)
+	authUseCase := usecase.NewAuthUseCase(userRepo, accountRepo)
 	authHandler := authHttp.NewAuthHandler(authUseCase)
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 }

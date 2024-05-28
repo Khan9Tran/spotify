@@ -10,16 +10,17 @@ import (
 	"spotify/utils"
 )
 
-type AuthUseCase struct {
-	authRepo auth.UserRepo
+type authUseCase struct {
+	accountRepo auth.AccountRepo
+	userRepo auth.UserRepo
 }
 
-func NewAuthUseCase(authRepo auth.UserRepo) *AuthUseCase {
-	return &AuthUseCase{authRepo: authRepo}
+func NewAuthUseCase(userRepo auth.UserRepo, accountRepo auth.AccountRepo) auth.UseCase {
+	return &authUseCase{userRepo: userRepo, accountRepo: accountRepo}
 }
 
-func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPassword, name string) error {
-	_, err := a.authRepo.GetAccountByEmail(ctx, email)
+func (a *authUseCase) Register(ctx context.Context, email, password, conformPassword, name string) error {
+	_, err := a.accountRepo.GetAccountByEmail(ctx, email)
 	if err == nil {
 		return fmt.Errorf(auth.ErrUserExisted.Error())
 	}
@@ -34,20 +35,20 @@ func (a *AuthUseCase) Register(ctx context.Context, email, password, conformPass
 	}
 
 	account := &models.Account{Email: email, Password: hashPassword}
-	if err := a.authRepo.CreateAccount(ctx, account); err != nil {
+	if err := a.accountRepo.CreateAccount(ctx, account); err != nil {
 		return fmt.Errorf(auth.ErrInternalServer.Error())
 	}
 
-	if err := a.authRepo.CreateUser(ctx, &models.Users{Name: name, AccountID: account.ID, Slug: utils.CreateSlug(name, account.ID)}); err != nil {
+	if err := a.userRepo.CreateUser(ctx, &models.Users{Name: name, AccountID: account.ID, Slug: utils.CreateSlug(name, account.ID)}); err != nil {
 		return fmt.Errorf(auth.ErrInternalServer.Error())
 	}
 
 	return nil
 }
 
-func (a *AuthUseCase) Login(ctx context.Context, email, password string) (token string, err error) {
+func (a *authUseCase) Login(ctx context.Context, email, password string) (token string, err error) {
 
-	accout, err := a.authRepo.GetAccountByEmail(ctx, email)
+	accout, err := a.accountRepo.GetAccountByEmail(ctx, email)
 	if err != nil {
 		return "", fmt.Errorf(auth.ErrUserNotFound.Error())
 	}

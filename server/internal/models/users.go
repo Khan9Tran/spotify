@@ -13,7 +13,7 @@ type Users struct {
 	DateOfBirth time.Time
 	Gender      string   `gorm:"type:varchar(10)"`
 	AccountID   uint     `gorm:"not null"`
-	Role        string   `gorm:"type:varchar(10);not null"`
+	Role        string   `gorm:"type:varchar(10);not null;default:'user'"`
 	Account     Account  `gorm:"foreignKey:AccountID;references:ID"`
 	Artists     []Artist `gorm:"many2many:follows"`
 	Song        []Song   `gorm:"many2many:listening_histories"`
