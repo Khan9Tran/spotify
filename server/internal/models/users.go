@@ -12,8 +12,8 @@ type Users struct {
 	Country     string `gorm:"type:varchar(100)"`
 	DateOfBirth time.Time
 	Gender      string   `gorm:"type:varchar(10)"`
-	AccountID   uint     `gorm:"not null"`
 	Role        string   `gorm:"type:varchar(10);not null"`
+	AccountID   uint     `gorm:"not null"`
 	Account     Account  `gorm:"foreignKey:AccountID;references:ID"`
 	Artists     []Artist `gorm:"many2many:follows"`
 	Song        []Song   `gorm:"many2many:listening_histories"`
