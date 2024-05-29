@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 export const Home = () => {
   return (
     <div>
-        <h3>Home</h3>
-        <Link to="/login">Login</Link><br/>
-        <Link to="/register">Register</Link>
+        <h3 className="font-bold">Home</h3>
+        <Link to="/login" className="font-light">Login</Link><br/>
+        <Link to="/register" className="font-medium">Register</Link>
     </div>
   )
 }
