@@ -1,0 +1,10 @@
+.footer--content, .footer--content *{
+    color: theme('colors.gray-light');
+    font-size: 12px;
+}
+
+img{
+    width: 22px;
+    height: 22px;
+    display: inline;
+}
