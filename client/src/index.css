@@ -3,19 +3,26 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'CircularStd-Bold';
-  src: url('./assets/fonts/CircularStd-Bold.otf') format('opentype');
+  font-family: 'Gotham-Bold';
+  src: url('./assets/fonts/GothamBold.ttf') format('ttf');
 }
 
 @font-face {
-  font-family: 'CircularStd-Light';
-  src: url('./assets/fonts/CircularStd-Light.otf') format('opentype');
+  font-family: 'Gotham-Light';
+  src: url('./assets/fonts/GothamMedium.ttf') format('ttf');
 }
 
 @font-face {
-  font-family: 'CircularStd-Medium';
-  src: url('./assets/fonts/CircularStd-Medium.otf') format('opentype');
+  font-family: 'Gotham-Medium';
+  src: url('./assets/fonts/GothamLight.ttf') format('ttf');
 }
+
+* {
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Gotham-Medium', sans-serif;
+}
+
 body {
   margin: 0;
 }
