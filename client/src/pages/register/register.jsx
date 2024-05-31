@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './register.css'
 import Logo from '../../components/logo'
 import Input from '../../components/input'
 import Button from '../../components/button'
+import IconError from '../../components/iconError'
 import GoogleLogo from '../../assets/images/google_logo.png'
 import FacebookLogo from '../../assets/images/facebook_logo.png'
 import AppleLogo from '../../assets/images/apple_logo.png'
@@ -11,25 +12,113 @@ export const Register = () => {
   useEffect(() => {
     document.title = 'Đăng ký - Spotify';
   }, []);
+
+  const [inputError, setInputError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+
+  const handleInputError = (error) => {
+    setInputError(error);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const buttonRegisterClicked = async (event) => {
+    event.preventDefault();
+
+    if (inputError) {
+      return;
+    }
+
+    const response = await fetch('http://localhost:8080/v1/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        confirm_password: confirmPassword,
+        name: name
+      })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log(data);
+    } else {
+      const errorMessage = document.querySelector('.error-message');
+      const containerError = document.querySelector('.container-error');
+
+      if (data.message !== 'Email đã tồn tại') {
+        errorMessage.textContent = data.message;
+      }
+      else {
+        errorMessage.innerHTML = 'Địa chỉ email này đã được liên kết với một tài khoản hiện có. Để tiếp tục, hãy <a class="underline font-bold" href="/login">đăng nhập.</a>';
+      }
+      containerError.style.display = 'flex';
+    }
+
+  };
+
   return (
-    <div className="wrapper bg-black-secondary w-screen h-screen flex flex-col">
+    <div className="wrapper bg-black-secondary w-screen min-h-screen flex flex-col overflow-y-auto">
       <div className="wrapper--header w-full h-[96px] flex items-center pl-7">
         <Logo />
       </div>
 
       <div className="wrapper--body flex flex-col items-center">
         <div className="w-[388px] px-7">
-          <h1 className="text-white-primary text-[32px] sm:text-[45px] font-bold">
+          <h1 className="text-white-primary text-[32px] sm:text-[45px] font-bold mb-11">
             Đăng ký để bắt đầu nghe
           </h1>
 
-          <form className="mt-9">
-            <label className='font-bold'>Địa chỉ email</label>
-            <div className='mt-3'>
-              <Input type={'email'} placeholder={'name@domain.com'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} />
+          <div className='container-error w-full sm:w-[324px] hidden flex-row items-start bg-[#FFA42B] p-5 rounded-md'>
+            <div className='min-h-[21px] min-w-[21px] mr-1'>
+              <IconError strokeColor={'#171717'} width={'21px'} height={'21px'} />
             </div>
+            <span className='error-message text-[#171717] text-[14px]'></span>
+          </div>
+
+          <form className="mt-4">
+            <label className='font-bold'>Địa chỉ email</label>
+            <div className='mt-1 mb-2'>
+              <Input type={'email'} placeholder={'name@domain.com'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={handleEmailChange} handleInputError={handleInputError} />
+            </div>
+
+            <label className='font-bold'>Mật khẩu</label>
+            <div className='mt-1 mb-2'>
+              <Input type={'password'} placeholder={'Mật khẩu'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={handlePasswordChange} />
+            </div>
+
+            <label className='font-bold'>Xác nhận mật khẩu</label>
+            <div className='mt-1 mb-2'>
+              <Input type={'password'} placeholder={'Mật khẩu'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={handleConfirmPasswordChange} />
+            </div>
+
+            <label className='font-bold'>Tên</label>
+            <div className='mt-1 mb-2'>
+              <Input type={'text'} placeholder={'Tên của bạn'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={handleNameChange} />
+            </div>
+
             <div className='mt-11'>
-              <Button width={'100%'} height={'48px'} radius={'60px'} backgroundColor={'bg-green-light'} label={'Tiếp theo'} fontColor={'text-black-primary'} fontSize={'15px'} fontStyle={'font-bold'} />
+              <Button width={'100%'} height={'48px'} radius={'60px'} backgroundColor={'bg-green-light'} label={'Tiếp theo'} fontColor={'text-black-primary'} fontSize={'15px'} fontStyle={'font-bold'} onClick={buttonRegisterClicked} />
             </div>
           </form>
 
@@ -65,7 +154,7 @@ export const Register = () => {
 
           <div>
             <div className='h-[1px] w-full bg-gray-dark my-10'></div>
-            <span className='block w-full text-gray-light text-[15px] text-center'>
+            <span className='block w-full text-gray-light text-[15px] text-center mb-16'>
               Bạn đã có tài khoản?
               <a href="/login" className='ml-1 underline text-white-secondary hover:text-green-light font-bold'>Đăng nhập tại đây.</a>
             </span>
