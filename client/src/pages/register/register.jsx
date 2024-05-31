@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './register.css'
 import Logo from '../../components/logo'
 import Input from '../../components/input'
@@ -8,6 +8,9 @@ import FacebookLogo from '../../assets/images/facebook_logo.png'
 import AppleLogo from '../../assets/images/apple_logo.png'
 
 export const Register = () => {
+  useEffect(() => {
+    document.title = 'Đăng ký - Spotify';
+  }, []);
   return (
     <div className="wrapper bg-black-secondary w-screen h-screen flex flex-col">
       <div className="wrapper--header w-full h-[96px] flex items-center pl-7">
