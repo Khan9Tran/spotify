@@ -3,6 +3,7 @@ import './login.css'
 import Logo from '../../components/logo'
 import Input from '../../components/input'
 import Button from '../../components/button'
+import IconError from '../../components/iconError'
 import GoogleLogo from '../../assets/images/google_logo.png'
 import FacebookLogo from '../../assets/images/facebook_logo.png'
 import AppleLogo from '../../assets/images/apple_logo.png'
@@ -11,18 +12,64 @@ export const Login = () => {
   useEffect(() => {
     document.title = 'Đăng nhập - Spotify';
   }, []);
+
   const [remember, setRemember] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [inputError, setInputError] = useState(false);
 
   const onRemenberClicked = () => {
     const wrapperSwitch = document.querySelector('.remember-switch');
-    if(remember) {
+    if (remember) {
       wrapperSwitch.classList.remove('turn-on');
     }
-    else{
+    else {
       wrapperSwitch.classList.add('turn-on');
     }
     setRemember(!remember);
   };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const buttonLoginClicked = async (event) => {
+    event.preventDefault();
+
+    if (inputError) {
+      return;
+    }
+
+    const response = await fetch('http://localhost:8080/v1/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log(data);
+    } else {
+      const errorMessage = document.querySelector('.error-message');
+      const containerError = document.querySelector('.container-error');
+
+      errorMessage.textContent = data.message;
+      containerError.style.display = 'flex';
+    }
+  }
+
+  const handleInputError = (error) => {
+    setInputError(error);
+  }
 
   return (
     <div className="wrapper bg-black-secondary w-screen min-h-screen flex flex-col overflow-x-hidden overflow-y-auto">
@@ -62,14 +109,21 @@ export const Login = () => {
 
           <div className='w-3/4 h-[1px] my-11 bg-gray-dark'></div>
 
+          <div className='container-error w-full sm:w-[324px] hidden flex-row items-start bg-[#FFA42B] p-5 rounded-md mb-3'>
+            <div className='min-h-[21px] min-w-[21px] mr-1'>
+              <IconError strokeColor={'#171717'} width={'21px'} height={'21px'} />
+            </div>
+            <span className='error-message text-[#171717] text-[14px]'></span>
+          </div>
+
           <form className="w-full sm:w-[324px]">
             <label className='block font-bold'>Email hoặc tên người dùng</label>
             <div className='mt-2'>
-              <Input type={'email'} placeholder={'Email hoặc tên người dùng'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} />
+              <Input type={'email'} placeholder={'Email hoặc tên người dùng'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={handleEmailChange} handleInputError={handleInputError} />
             </div>
             <label className='block font-bold mt-4'>Mật khẩu</label>
             <div className='my-2'>
-              <Input type={'password'} placeholder={'Mật khẩu'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} />
+              <Input type={'password'} placeholder={'Mật khẩu'} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={handlePasswordChange} />
             </div>
             <div className='flex flex-row items-center mt-5'>
               <div className='remember-switch cursor-pointer overflow-hidden w-10 h-[18px] rounded-xl' onClick={onRemenberClicked}>
@@ -77,7 +131,7 @@ export const Login = () => {
               <span className='text-[11px] ml-2'>Hãy nhớ tôi</span>
             </div>
             <div className='mt-10'>
-              <Button width={'100%'} height={'48px'} radius={'60px'} backgroundColor={'bg-green-light'} label={'Đăng nhập'} fontColor={'text-black-primary'} fontSize={'15px'} fontStyle={'font-bold'} />
+              <Button width={'100%'} height={'48px'} radius={'60px'} backgroundColor={'bg-green-light'} label={'Đăng nhập'} fontColor={'text-black-primary'} fontSize={'15px'} fontStyle={'font-bold'} onClick={buttonLoginClicked} />
             </div>
           </form>
 
