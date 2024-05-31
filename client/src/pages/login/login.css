@@ -8,3 +8,35 @@ img{
     height: 22px;
     display: inline;
 }
+
+.remember-switch{
+    background-color: theme(colors.gray-dark);
+}
+.remember-switch.turn-on{
+    background-color: theme(colors.green-light);
+}
+
+.remember-switch::after{
+    content: "";
+    display: block;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    top: 50%;
+    left: 5%;
+    border-radius: 50%;
+    background-color: theme(colors.black-secondary);
+    transform: translate(0%, -50%);
+}
+.remember-switch.turn-on::after{
+    content: "";
+    display: block;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background-color: theme(colors.black-secondary);
+    transform: translate(0%, -50%);
+}
