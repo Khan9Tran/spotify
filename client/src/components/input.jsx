@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
+import PasswordShow from '../assets/images/password_show.png'
+import PasswordHidden from '../assets/images/password_hidden.png'
 
-const Input = ({ type, placeholder, width, height, backgroundColor, radius, border, borderWidth, borderColor, borderColorForcused, borderColorError, changeBorderColor, padding, fontSize}) => {
+
+const Input = ({ type, placeholder, width, height, backgroundColor, radius, border, borderWidth, borderColor, borderColorForcused, borderColorError, changeBorderColor, padding, fontSize }) => {
+
   const [isForcused, setIsForcused] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const styles = {
     width: width !== undefined ? width : 'auto',
@@ -13,11 +22,10 @@ const Input = ({ type, placeholder, width, height, backgroundColor, radius, bord
   }
 
   return (
-    <div>
+    <div className='relative'>
       <input
         className={`outline-none ${border} ${isForcused ? borderColorForcused : borderColor} ${backgroundColor !== undefined ? backgroundColor : 'bg-transparent'}`}
-        type={type !== undefined ? type : "text"}
-        placeholder={placeholder !== undefined ? placeholder : ""}
+        type={showPassword ? 'text' : type !== undefined ? type : 'text'} placeholder={placeholder !== undefined ? placeholder : ""}
         style={styles}
         onFocus={() => {
           if (changeBorderColor) {
@@ -28,9 +36,13 @@ const Input = ({ type, placeholder, width, height, backgroundColor, radius, bord
           if (changeBorderColor) {
             setIsForcused(false)
           }
-          }
-        }
+        }}
       />
+      {type === 'password' && (
+        <div className='absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer' onClick={handleShowPassword}>
+          {showPassword ? <img src={PasswordShow} alt="Hide password" /> : <img src={PasswordHidden} alt="Show password" />}
+        </div>
+      )}
     </div>
   )
 }
