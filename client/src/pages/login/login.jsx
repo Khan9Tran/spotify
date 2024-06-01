@@ -61,6 +61,10 @@ export const Login = () => {
     const data = await response.json();
     if (response.ok) {
       // process Token
+      // create cookie with token, expire in 30 days => user will be logged in for 30 days
+      // document.cookie = `authToken=${data.token}; expires=${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+      // create cookie with token, expire when browser closed => user will be logged in until browser closed
+      document.cookie = `authToken=${data.token}; path=/`;
 
       // redirect
       navigate('/');

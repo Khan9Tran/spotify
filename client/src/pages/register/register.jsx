@@ -129,7 +129,7 @@ export const Register = () => {
             </div>
 
             <div className='mt-11'>
-              <Button width={'100%'} height={'48px'} radius={'60px'} backgroundColor={'bg-green-light'} label={'Tiếp theo'} fontColor={'text-black-primary'} fontSize={'15px'} fontStyle={'font-bold'} onClick={buttonRegisterClicked} />
+              <Button width={'100%'} height={'48px'} radius={'60px'} backgroundColor={'bg-green-light'} label={'Đăng ký'} fontColor={'text-black-primary'} fontSize={'15px'} fontStyle={'font-bold'} onClick={buttonRegisterClicked} />
             </div>
           </form>
 
