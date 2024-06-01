@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './register.css'
-import Logo from '../../components/logo'
+import LogoAndText from '../../components/logoAndText'
 import Input from '../../components/input'
 import Button from '../../components/button'
 import IconError from '../../components/iconError'
+import IconSuccess from '../../components/iconSuccess'
 import GoogleLogo from '../../assets/images/google_logo.png'
 import FacebookLogo from '../../assets/images/facebook_logo.png'
 import AppleLogo from '../../assets/images/apple_logo.png'
@@ -60,11 +61,18 @@ export const Register = () => {
     });
 
     const data = await response.json();
+    const errorMessage = document.querySelector('.notify-message');
+    const containerNotify = document.querySelector('.container-notify');
+
     if (response.ok) {
-      console.log(data);
+      containerNotify.classList.remove('error');
+      containerNotify.classList.add('success');
+
+      errorMessage.innerHTML = 'Đăng ký thành công. Để tiếp tục, hãy <a class="underline font-bold" href="/login">đăng nhập.</a>';
+      containerNotify.style.display = 'flex';
     } else {
-      const errorMessage = document.querySelector('.error-message');
-      const containerError = document.querySelector('.container-error');
+      containerNotify.classList.remove('success');
+      containerNotify.classList.add('error');
 
       if (data.message !== 'Email đã tồn tại') {
         errorMessage.textContent = data.message;
@@ -72,7 +80,7 @@ export const Register = () => {
       else {
         errorMessage.innerHTML = 'Địa chỉ email này đã được liên kết với một tài khoản hiện có. Để tiếp tục, hãy <a class="underline font-bold" href="/login">đăng nhập.</a>';
       }
-      containerError.style.display = 'flex';
+      containerNotify.style.display = 'flex';
     }
 
   };
@@ -80,7 +88,7 @@ export const Register = () => {
   return (
     <div className="wrapper bg-black-secondary w-screen min-h-screen flex flex-col overflow-y-auto">
       <div className="wrapper--header w-full h-[96px] flex items-center pl-7">
-        <Logo />
+        <LogoAndText />
       </div>
 
       <div className="wrapper--body flex flex-col items-center">
@@ -89,11 +97,14 @@ export const Register = () => {
             Đăng ký để bắt đầu nghe
           </h1>
 
-          <div className='container-error w-full sm:w-[324px] hidden flex-row items-start bg-[#FFA42B] p-5 rounded-md'>
-            <div className='min-h-[21px] min-w-[21px] mr-1'>
+          <div className='container-notify w-full sm:w-[339px] hidden flex-row items-start p-5 rounded-md'>
+            <div className='icon-error min-h-[21px] min-w-[21px] mr-1'>
               <IconError strokeColor={'#171717'} width={'21px'} height={'21px'} />
             </div>
-            <span className='error-message text-[#171717] text-[14px]'></span>
+            <div className='icon-success min-h-[21px] min-w-[21px] mr-1'>
+              <IconSuccess fill={'#171717'} width={'21px'} height={'21px'} />
+            </div>
+            <span className='notify-message text-[#171717] text-[14px]'></span>
           </div>
 
           <form className="mt-4">

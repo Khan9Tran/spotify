@@ -8,3 +8,24 @@ img{
     height: 22px;
     display: inline;
 }
+
+.container-notify.error{
+    background-color: #ffa42b;
+}
+.container-notify.success{
+    background-color: theme('colors.green-light');
+}
+
+.container-notify.success .icon-error{
+    display: none;
+}
+.container-notify.success .icon-success{
+    display: inline;
+}
+
+.container-notify.error .icon-error{
+    display: inline;
+}
+.container-notify.error .icon-success{
+    display: none;
+}
