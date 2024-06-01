@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './login.css'
-import Logo from '../../components/logo'
+import LogoAndText from '../../components/logoAndText'
 import Input from '../../components/input'
 import Button from '../../components/button'
 import IconError from '../../components/iconError'
 import GoogleLogo from '../../assets/images/google_logo.png'
 import FacebookLogo from '../../assets/images/facebook_logo.png'
 import AppleLogo from '../../assets/images/apple_logo.png'
+import { Navigate, redirect, useNavigate } from 'react-router-dom'
 
 export const Login = () => {
   useEffect(() => {
@@ -17,6 +18,8 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [inputError, setInputError] = useState(false);
+  const navigate = useNavigate();
+
 
   const onRemenberClicked = () => {
     const wrapperSwitch = document.querySelector('.remember-switch');
@@ -57,7 +60,10 @@ export const Login = () => {
 
     const data = await response.json();
     if (response.ok) {
-      console.log(data);
+      // process Token
+
+      // redirect
+      navigate('/');
     } else {
       const errorMessage = document.querySelector('.error-message');
       const containerError = document.querySelector('.container-error');
@@ -74,7 +80,7 @@ export const Login = () => {
   return (
     <div className="wrapper bg-black-secondary w-screen min-h-screen flex flex-col overflow-x-hidden overflow-y-auto">
       <div className="wrapper--header w-full h-[96px] flex items-center pl-7">
-        <Logo />
+        <LogoAndText />
       </div>
 
       <div className="wrapper--body flex flex-col items-center bg-gradient-to-b from-[#2a2a2a] to-[#000000]">
@@ -83,7 +89,7 @@ export const Login = () => {
             Đăng nhập vào Spotify
           </h1>
 
-          <div className='w-full sm:w-[324px]'>
+          <div className='w-[324px]'>
             <div className='mb-3'>
               <a className='w-full h-[48px] rounded-[60px] border-gray-dark hover:border-white-primary hover:border-[1.9px] border-[1.5px] px-6 flex flex-row items-center justify-between' href="#">
                 <img src={GoogleLogo} alt="" />
@@ -148,7 +154,7 @@ export const Login = () => {
 
       <div className="wrapper--footer w-full h-24 flex items-center justify-center pl-7">
         <p className="footer--content text-center">
-          This site is protected by reCAPTCHA and the Google 
+          This site is protected by reCAPTCHA and the Google
           <a href="https://policies.google.com/privacy" className="underline">Privacy Policy</a>
           <span> and </span>
           <a href="https://policies.google.com/terms" className="underline"> Terms of Service</a>
