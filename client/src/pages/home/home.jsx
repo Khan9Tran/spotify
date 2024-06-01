@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './home.css'
 import LogoAndText from '../../components/logoAndText'
 import IconNext from '../../components/iconNext'
@@ -6,12 +6,23 @@ import IconPrevious from '../../components/iconPrevious'
 import Button from '../../components/button'
 import HomeIcon from '../../assets/images/home_icon.png'
 import SearchIcon from '../../assets/images/search_icon.png'
+import Cookies from 'js-cookie';
 
 import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
 
   const navigate = useNavigate();
+  const [logined, setLogined] = useState(false);
+  const token = Cookies.get('authToken');
+
+  useEffect(() => {
+    if (token) {
+      setLogined(true);
+      console.log('Chicken');
+      console.log(token);
+    }
+  }, [token]);
 
   const logoHandleClick = () => {
     navigate('/');
@@ -66,8 +77,8 @@ export const Home = () => {
             </div>
           </div>
           <div className="main-accout flex flex-row justify-end items-center flex-grow pr-5">
-            <Button width={'120px'} height={'48px'} label={'Đăng ký'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'transparent'} onClick={buttonRegisterClicked}/>
-            <Button width={'144px'} height={'48px'} label={'Đăng ký'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'bg-white-secondary'} fontColor={'text-black-primary'} onClick={buttonLoginClicked}/>
+            <Button width={'120px'} height={'48px'} label={'Đăng ký'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'transparent'} onClick={buttonRegisterClicked} />
+            <Button width={'144px'} height={'48px'} label={'Đăng nhập'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'bg-white-secondary'} fontColor={'text-black-primary'} onClick={buttonLoginClicked} />
           </div>
         </div>
         <div className="wrapper__main-body">
