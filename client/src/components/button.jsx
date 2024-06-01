@@ -10,18 +10,24 @@ const Button = ({ onClick, label, backgroundColor, width, height, margin, paddin
         margin: margin !== undefined ? margin : '0',
         padding: padding !== undefined ? padding : '0',
         borderRadius: radius !== undefined ? radius : '10px',
-        fontSize: fontSize !== undefined ? fontSize : '14px',
-        transform: `scale(${isHovered && scaleWhenHoverd ? 1.1 : 1})`,
+        transform: `scale(${isHovered && scaleWhenHoverd ? 1.05 : 1})`,
         transition: 'scale 0.1s linear',
     }
+
+    const fontSizeStyle = {
+        fontSize: fontSize !== undefined ? fontSize : '14px',
+    }
+
     return (
         <button
-            className={`${backgroundColor !== undefined ? backgroundColor : 'bg-gray-light'} ${fontColor !== undefined ? fontColor : ''} ${fontStyle !== undefined ? fontStyle : ''}`}
+            className={`${backgroundColor !== undefined ? backgroundColor : 'bg-gray-light'} flex justify-center items-center`}
             onClick={onClick}
             style={styles}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
-            {label !== undefined ? label : 'Button'}
+            <span className={`${fontColor !== undefined ? fontColor : ''} ${fontStyle !== undefined ? fontStyle : ''}`} style={fontSizeStyle}>
+                {label !== undefined ? label : 'Button'}
+            </span>
         </button>
     );
 };
