@@ -12,7 +12,7 @@ import (
 
 type authUseCase struct {
 	accountRepo auth.AccountRepo
-	userRepo auth.UserRepo
+	userRepo    auth.UserRepo
 }
 
 func NewAuthUseCase(userRepo auth.UserRepo, accountRepo auth.AccountRepo) auth.UseCase {
@@ -47,22 +47,21 @@ func (a *authUseCase) Register(ctx context.Context, email, password, conformPass
 }
 
 func (a *authUseCase) Login(ctx context.Context, email, password string) (token string, err error) {
-
 	accout, err := a.accountRepo.GetAccountByEmail(ctx, email)
 	if err != nil {
-		return "", fmt.Errorf(auth.ErrUserNotFound.Error())
+		return "", fmt.Errorf("%w", auth.ErrUserNotFound)
 	}
 
 	if !security.ComparePassword(accout.Password, []byte(password)) {
-		return "", fmt.Errorf(auth.ErrWrongPassword.Error())
+		return "", fmt.Errorf("%w", auth.ErrWrongPassword)
 	}
 
 	secret := []byte(config.Envs.JWRSecret)
 	token, err = security.CreateJWT(secret, int(accout.ID))
-
 	if err != nil {
-		return "", fmt.Errorf(auth.ErrInternalServer.Error())
+		return "", fmt.Errorf("%w", auth.ErrInternalServer)
 	}
 
 	return token, nil
 }
+

@@ -1,6 +1,8 @@
 package authHttp
 
 import (
+	"errors"
+	"fmt"
 	"net/http"
 	"spotify/internal/auth"
 	"spotify/internal/auth/presenter"
@@ -79,14 +81,16 @@ func (h *authHandler) Login() gin.HandlerFunc {
 		token, err := h.userCase.Login(c.Request.Context(), loginPayload.Email, loginPayload.Password)
 
 		if err != nil {
-			if err == auth.ErrUserNotFound {
+			if errors.Is(err, auth.ErrUserNotFound) {
+				fmt.Println("CHICKEN")
 				c.JSON(http.StatusBadRequest, gin.H{
 					"status":  "fail",
 					"message": "Tài khoản không tổn tại!!!",
 				})
 				return
 			}
-			if err == auth.ErrWrongPassword {
+
+			if errors.Is(err, auth.ErrWrongPassword) {
 				c.JSON(http.StatusBadRequest, gin.H{
 					"status":  "fail",
 					"message": "Email hoặc mật khẩu không chính xác!!!",
