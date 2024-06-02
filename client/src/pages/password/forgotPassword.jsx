@@ -2,11 +2,30 @@ import { useState } from "react"
 import Logo from "../../components/logoAndText"
 import Input from "../../components/input";
 import './forgotPassword.css'
+import Button from "../../components/button";
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [inputError, setInputError] = useState(false);
 
+    const buttonGetLinkClicked = async (event) => {
+        event.preventDefault();
+
+        if (inputError) {
+            return;
+        }
+
+        const response = await fetch('http://localhost:8080/v1/auth/forgot-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email
+            })
+        });
+
+    }
     return (
         <div className="wrapper bg-black-secondary w-screen min-h-screen flex flex-col overflow-y-auto items-center ">
             <div className="wrapper--header w-full h-[96px] flex items-center pl-7">
@@ -25,7 +44,10 @@ export const ForgotPassword = () => {
                 </h1>
                 <form>
                     <div className="mb-5">
-                        <Input type={'email'} placeholder={''} width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={(event) => {setEmail(event.target.value)}} handleInputError={(event)=> {setInputError(event.target.value)}}/>
+                        <Input width={'100%'} height={'48px'} radius={'5px'} padding={'0 10px'} fontSize={'15px'} borderWidth={'1.5px'} changeBorderColor={true} borderColor={'border-gray-dark'} borderColorForcused={'border-white-primary'} borderColorError={'border-red-light'} onChange={(event) => {setEmail(event.target.value)}} handleInputError={(error)=> {setInputError(error)}} type={'notEmpty'}/>
+                    </div>
+                    <div className="mb-5">
+                        <Button onClick={buttonGetLinkClicked} label={"Gửi đường liên kết"} height={'48px'} width={'100%'} backgroundColor={'bg-green-light'} fontColor={'text-black-primary'} fontSize={'15px'} fontStyle={'font-bold'}/>
                     </div>
                 </form>
                 <a href="" className="sm:text-[13px] underline font-semibold">
