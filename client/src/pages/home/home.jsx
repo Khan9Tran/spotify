@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie';
+
 import './home.css'
+
 import LogoAndText from '../../components/logoAndText'
 import IconNext from '../../components/iconNext'
 import IconPrevious from '../../components/iconPrevious'
 import Button from '../../components/button'
+import MainBodyGuest from '../../components/mainBodyGuest'
+
 import HomeIcon from '../../assets/images/home_icon.png'
 import SearchIcon from '../../assets/images/search_icon.png'
 import LibraryIcon from '../../assets/images/library_icon.png'
@@ -13,7 +18,6 @@ import ThanhHuy from '../../assets/images/thanh_huy.png'
 import NhutKhang from '../../assets/images/nhut_khang.png'
 import FacebookLogo from '../../assets/images/facebook_logo_no_color.png'
 import EmailLogo from '../../assets/images/email_logo.png'
-import Cookies from 'js-cookie';
 
 import { useNavigate } from 'react-router-dom'
 
@@ -108,6 +112,8 @@ export const Home = () => {
           </div>
         </div>
         <div className="wrapper__main-body flex-grow bg-gradient-to-b from-[#313131] to-black-secondary">
+
+          <MainBodyGuest />
 
         </div>
         <div className="wrapper__main-footer ">
