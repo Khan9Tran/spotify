@@ -146,7 +146,7 @@ export const Login = () => {
           </form>
 
           <div className='w-3/4 flex flex-col items-center my-10'>
-            <a className='underline font-bold hover:text-green-light text-[15px]' href="#">Quên mật khẩu của bạn?</a>
+            <a className='underline font-bold hover:text-green-light text-[15px]' href="/password-reset">Quên mật khẩu của bạn?</a>
             <div className='h-[1px] w-full bg-gray-dark my-10'></div>
             <span className='block w-full text-gray-light text-[15px] text-center mt-11'>
               Bạn chưa có tài khoản?
