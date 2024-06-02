@@ -11,7 +11,7 @@ const Button = ({ onClick, label, backgroundColor, width, height, margin, paddin
         padding: padding !== undefined ? padding : '0',
         borderRadius: radius !== undefined ? radius : '10px',
         transform: `scale(${isHovered && scaleWhenHoverd ? 1.05 : 1})`,
-        transition: 'scale 0.1s linear',
+        transition: 'scale 0.15s linear',
     }
 
     const fontSizeStyle = {

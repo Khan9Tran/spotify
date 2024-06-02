@@ -6,6 +6,13 @@ import IconPrevious from '../../components/iconPrevious'
 import Button from '../../components/button'
 import HomeIcon from '../../assets/images/home_icon.png'
 import SearchIcon from '../../assets/images/search_icon.png'
+import LibraryIcon from '../../assets/images/library_icon.png'
+import PlusIcon from '../../assets/images/plus_icon.png'
+import AccoutAvatar from '../../assets/images/accout_avatar.png'
+import ThanhHuy from '../../assets/images/thanh_huy.png'
+import NhutKhang from '../../assets/images/nhut_khang.png'
+import FacebookLogo from '../../assets/images/facebook_logo_no_color.png'
+import EmailLogo from '../../assets/images/email_logo.png'
 import Cookies from 'js-cookie';
 
 import { useNavigate } from 'react-router-dom'
@@ -17,10 +24,16 @@ export const Home = () => {
   const token = Cookies.get('authToken');
 
   useEffect(() => {
+    const mainAccout = document.querySelector('.main-accout');
     if (token) {
       setLogined(true);
-      console.log('Chicken');
-      console.log(token);
+      mainAccout.classList.remove('no-login');
+      mainAccout.classList.add('login');
+    }
+    else {
+      setLogined(false);
+      mainAccout.classList.add('no-login');
+      mainAccout.classList.remove('login');
     }
   }, [token]);
 
@@ -54,15 +67,21 @@ export const Home = () => {
           </div>
           <div className="flex flex-row items-center w-ful cursor-pointer" onClick={itemMenuHomeClicked}>
             <img className='w-[25px] h-[25px] ml-[3px]' src={HomeIcon} alt="" />
-            <span className='font-bold text-[15px] text-white-primary m-3 mt-4 hover:text-white-primary'>Trang chủ</span>
+            <span className='font-bold text-[15px] text-white-primary m-3 mt-4 hover:text-white-primary transition'>Trang chủ</span>
           </div>
           <div className="flex flex-row items-center w-ful h-[50px] cursor-pointer" onClick={itemMenuSearchClicked}>
             <img className='w-[25px] h-[25px] ml-[3px]' src={SearchIcon} alt="" />
-            <span className='font-bold text-[15px] text-gray-light m-3 mt-4 hover:text-white-primary'>Tìm kiếm</span>
+            <span className='font-bold text-[15px] text-gray-light m-3 mt-4 hover:text-white-primary transition'>Tìm kiếm</span>
           </div>
         </div>
-        <div className="wrapper__navigate-library w-ful flex-grow bg-black-secondary mt-3 rounded-md p-5">
-
+        <div className="wrapper__navigate-library w-ful flex-grow bg-black-secondary mt-3 rounded-md px-5 py-1">
+          <div className="flex flex-row items-center justify-between w-ful h-[50px]">
+            <div className="flex flex-row items-center w-ful h-[50px] cursor-pointer" onClick={itemMenuSearchClicked}>
+              <img className='w-[25px] h-[25px] ml-[3px]' src={LibraryIcon} alt="" />
+              <span className='font-bold text-[15px] text-gray-light m-3 mt-4 flex-grow hover:text-white-primary transition'>Thư viện</span>
+            </div>
+            <img className='w-9 h-9 p-[6px] rounded-[50%] hover:bg-[#333333]' src={PlusIcon} alt="" />
+          </div>
         </div>
       </div>
 
@@ -76,16 +95,73 @@ export const Home = () => {
               <IconNext width={'20px'} height={'23px'} fill={'#aaaaaa'} />
             </div>
           </div>
-          <div className="main-accout flex flex-row justify-end items-center flex-grow pr-5">
-            <Button width={'120px'} height={'48px'} label={'Đăng ký'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'transparent'} onClick={buttonRegisterClicked} />
-            <Button width={'144px'} height={'48px'} label={'Đăng nhập'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'bg-white-secondary'} fontColor={'text-black-primary'} onClick={buttonLoginClicked} />
+          <div className="main-accout flex flex-row justify-end items-center flex-grow">
+            <div className='accout-login-register hidden flex-row justify-center items-center py-2 px-5'>
+              <Button width={'120px'} height={'48px'} label={'Đăng ký'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'transparent'} onClick={buttonRegisterClicked} />
+              <Button width={'144px'} height={'48px'} label={'Đăng nhập'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'bg-white-secondary'} fontColor={'text-black-primary'} onClick={buttonLoginClicked} />
+            </div>
+            <div className='accout-options hidden flex-row justify-center items-center py-2 px-5'>
+              <Button width={'180px'} height={'33px'} label={'Khám phá Premium'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'bg-white-secondary'} fontColor={'text-black-primary'} onClick={buttonRegisterClicked} />
+              <Button width={'180px'} height={'33px'} label={'Cài đặt Ứng dụng'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'transparent'} fontColor={'text-white-secondary'} onClick={buttonLoginClicked} />
+              <img className='accout-avatar w-10 h-10 p-1 rounded-[50%] bg-green-light hover:scale-105' src={AccoutAvatar} alt="" />
+            </div>
           </div>
         </div>
-        <div className="wrapper__main-body">
+        <div className="wrapper__main-body flex-grow bg-gradient-to-b from-[#313131] to-black-secondary">
 
         </div>
-        <div className="wrapper__main-footer">
-
+        <div className="wrapper__main-footer ">
+          <div className="footer-link">
+            <div className="link-company">
+              <span>Công ty</span>
+              <a href="#" alt="">Giới thiệu</a>
+              <a href="#" alt="">Việc làm</a>
+              <a href="#" alt="">For the Record</a>
+            </div>
+            <div className="link-communicate">
+              <span>Cộng đồng</span>
+              <a href="#" alt="">Dành cho các Nghệ sĩ</a>
+              <a href="#" alt="">Nhà phát triển</a>
+              <a href="#" alt="">Quảng cáo</a>
+              <a href="#" alt="">Nhà đầu tư</a>
+              <a href="#" alt="">Nhà cung cấp</a>
+            </div>
+            <div className="link-useful">
+              <span>Liên kết hữu ích</span>
+              <a href="#" alt="">Hỗ trợ </a>
+              <a href="#" alt="">Ứng dụng Di động Miễn phí </a>
+            </div>
+            <div className="link-package">
+              <span>Các gói của Spootify</span>
+              <a href="#" alt="">Premium Individual</a>
+              <a href="#" alt="">Premium Student</a>
+              <a href="#" alt="">Spotify Free</a>
+            </div>
+          </div>
+          <div className="footer-social">
+            <div className="owner">
+              <img src={ThanhHuy} alt="" />
+              <div className="owner-link">
+                <a href="https://www.facebook.com/profile.php?id=100024283741045" alt="">
+                  <img src={FacebookLogo} alt="" />
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nguyenhuythanh256@gmail.com" alt="" target='_ blank'>
+                  <img src={EmailLogo} alt="" />
+                </a>
+              </div>
+            </div>
+            <div className="owner">
+              <img src={NhutKhang} alt="" />
+              <div className="owner-link">
+                <a href="https://www.facebook.com/tlnKhan9.oliver" alt="">
+                  <img src={FacebookLogo} alt="" />
+                </a>
+                <a href="" alt="">
+                  <img src={EmailLogo} alt="" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
