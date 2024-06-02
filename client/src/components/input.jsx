@@ -51,7 +51,15 @@ const Input = ({ type, placeholder, width, height, backgroundColor, radius, bord
               handleInputError(false);
             }
           }
-
+          if (type === 'notEmpty') {
+            if (event.target.value === '') {
+              setInputError(true);
+              handleInputError(true);
+            } else {
+              setInputError(false);
+              handleInputError(false);
+            }
+          }
           handleChange(event)
         }}
       />
@@ -60,12 +68,12 @@ const Input = ({ type, placeholder, width, height, backgroundColor, radius, bord
           {showPassword ? <img src={PasswordShow} alt="Hide password" /> : <img src={PasswordHidden} alt="Show password" />}
         </div>
       )}
-      <div className={`flex flex-row items-start mt-2 ${inputError && type === 'email' ? 'block' : 'hidden'}`}>
+      <div className={`flex flex-row items-start mt-2 ${inputError && (type === 'email' || type === 'notEmpty')? 'block' : 'hidden'}`}>
         <div className='min-h-[20px] min-w-[20px]'>
           <IconError strokeColor={'#FF0000'} width={'17px'} height={'17px'} />
         </div>
         <div className={`text-red-dark text-[13px]`}>
-          Email này không hợp lệ. Hãy đảm bảo rằng email được nhập dưới dạng example@email.com
+          {type === 'email' ? 'Email này không hợp lệ. Hãy đảm bảo rằng email được nhập dưới dạng example@email.com' : 'Đây là trường bắt buộc'}
         </div>
       </div>
 
