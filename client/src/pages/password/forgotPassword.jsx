@@ -3,6 +3,7 @@ import Logo from "../../components/logoAndText"
 import Input from "../../components/input";
 import './forgotPassword.css'
 import Button from "../../components/button";
+import { BasicFooter } from "../../components/footer";
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -53,6 +54,9 @@ export const ForgotPassword = () => {
                 <a href="" className="sm:text-[13px] underline font-semibold">
                     Bạn cần hỗ trợ?
                 </a>
+            </div>
+            <div className="wrapper--footer w-[345px] auto mt-40">
+                <BasicFooter/>
             </div>
         </div>
     )
