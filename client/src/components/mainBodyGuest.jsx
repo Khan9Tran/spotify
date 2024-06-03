@@ -1,20 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import BodyComponentTittle from './bodyComponentTittle';
 import ArtistComponent from './artistComponent';
+import AlbumComponent from './albumComponent';
+import RadioComponent from './radioComponent';
 
 const MainBodyGuest = () => {
     const containerRef = useRef(null);
-    const [numberOfArtists, setNumberOfArtists] = useState(6);
+    const [numberOfItems, setNumberOfArtists] = useState(6);
 
     useEffect(() => {
         const handleResize = (entries) => {
             for (let entry of entries) {
                 const currentWidth = entry.contentRect.width;
-                const minTotalWidth = 20 * 2 + 150 * (numberOfArtists);
-                const maxTotalWidth = 20 * 2 + 150 * (numberOfArtists + 1);
+                const minTotalWidth = 50 * 2 + 150 * (numberOfItems);
+                const maxTotalWidth = 50 * 2 + 150 * (numberOfItems + 1);
                 if (currentWidth < minTotalWidth) {
                     setNumberOfArtists(prev => Math.max(prev - 1, 0));
-                } else if (currentWidth >= maxTotalWidth && numberOfArtists < 6) {
+                } else if (currentWidth >= maxTotalWidth && numberOfItems < 6) {
                     setNumberOfArtists(prev => Math.min(prev + 1, 6));
                 }
             }
@@ -31,7 +33,7 @@ const MainBodyGuest = () => {
                 resizeObserver.unobserve(containerRef.current);
             }
         };
-    }, [numberOfArtists]);
+    }, [numberOfItems]);
 
     return (
         <div>
@@ -40,22 +42,22 @@ const MainBodyGuest = () => {
                     <BodyComponentTittle width={'w-full'} tittle={'Nghệ sĩ phổ biến'} seeAllText={'Hiện tất cả'} />
                 </div>
                 <div ref={containerRef} className="body-component-content w-full h-auto px-3 flex flex-row flex-grow overflow-hidden">
-                    <div className={numberOfArtists < 1 ? 'hidden' : ''}>
+                    <div className={numberOfItems < 1 ? 'hidden' : ''}>
                         <ArtistComponent />
                     </div>
-                    <div className={numberOfArtists < 2 ? 'hidden' : ''}>
+                    <div className={numberOfItems < 2 ? 'hidden' : ''}>
                         <ArtistComponent />
                     </div>
-                    <div className={numberOfArtists < 3 ? 'hidden' : ''}>
+                    <div className={numberOfItems < 3 ? 'hidden' : ''}>
                         <ArtistComponent />
                     </div>
-                    <div className={numberOfArtists < 4 ? 'hidden' : ''}>
+                    <div className={numberOfItems < 4 ? 'hidden' : ''}>
                         <ArtistComponent />
                     </div>
-                    <div className={numberOfArtists < 5 ? 'hidden' : ''}>
+                    <div className={numberOfItems < 5 ? 'hidden' : ''}>
                         <ArtistComponent />
                     </div>
-                    <div className={numberOfArtists < 6 ? 'hidden' : ''}>
+                    <div className={numberOfItems < 6 ? 'hidden' : ''}>
                         <ArtistComponent />
                     </div>
                 </div>
@@ -64,14 +66,50 @@ const MainBodyGuest = () => {
                 <div className="body-component-tittle">
                     <BodyComponentTittle width={'w-ful'} tittle={'Album phổ biến'} seeAllText={'Hiện tất cả'} />
                 </div>
-                <div className="body-component-content">
+                <div ref={containerRef} className="body-component-content w-full h-auto px-3 flex flex-row flex-grow overflow-hidden">
+                    <div className={numberOfItems < 1 ? 'hidden' : ''}>
+                        <AlbumComponent />
+                    </div>
+                    <div className={numberOfItems < 2 ? 'hidden' : ''}>
+                        <AlbumComponent />
+                    </div>
+                    <div className={numberOfItems < 3 ? 'hidden' : ''}>
+                        <AlbumComponent />
+                    </div>
+                    <div className={numberOfItems < 4 ? 'hidden' : ''}>
+                        <AlbumComponent />
+                    </div>
+                    <div className={numberOfItems < 5 ? 'hidden' : ''}>
+                        <AlbumComponent />
+                    </div>
+                    <div className={numberOfItems < 6 ? 'hidden' : ''}>
+                        <AlbumComponent />
+                    </div>
                 </div>
             </div>
             <div className="main__body-component">
                 <div className="body-component-tittle">
                     <BodyComponentTittle width={'w-ful'} tittle={'Radio phổ biến'} seeAllText={'Hiện tất cả'} />
                 </div>
-                <div className="body-component-content">
+                <div ref={containerRef} className="body-component-content w-full h-auto px-3 flex flex-row flex-grow overflow-hidden">
+                    <div className={numberOfItems < 1 ? 'hidden' : ''}>
+                        <RadioComponent />
+                    </div>
+                    <div className={numberOfItems < 2 ? 'hidden' : ''}>
+                        <RadioComponent />
+                    </div>
+                    <div className={numberOfItems < 3 ? 'hidden' : ''}>
+                        <RadioComponent />
+                    </div>
+                    <div className={numberOfItems < 4 ? 'hidden' : ''}>
+                        <RadioComponent />
+                    </div>
+                    <div className={numberOfItems < 5 ? 'hidden' : ''}>
+                        <RadioComponent />
+                    </div>
+                    <div className={numberOfItems < 6 ? 'hidden' : ''}>
+                        <RadioComponent />
+                    </div>
                 </div>
             </div>
             <div className="main__body-component">
