@@ -20,12 +20,102 @@ import FacebookLogo from '../../assets/images/facebook_logo_no_color.png'
 import EmailLogo from '../../assets/images/email_logo.png'
 
 import { useNavigate } from 'react-router-dom'
+import { LibraryComponent } from '../../components/libraryComponent';
+import { GenreList } from '../../components/genreList';
 
 export const Home = () => {
 
   const navigate = useNavigate();
   const [logined, setLogined] = useState(false);
   const token = Cookies.get('authToken');
+  const [activeComponent, setActiveComponent] = useState('MainBodyGuest')
+  const items = [
+    {
+        name: 'Genre 1',
+        img: 'url_to_image_1',
+        id: 1
+    },
+    {
+        name: 'Genre 2',
+        img: 'url_to_image_2',
+        id: 2
+    },
+    {
+        name: 'Genre 3',
+        img: 'url_to_image_3',
+        id: 3
+    },
+    {
+        name: 'Genre 4',
+        img: 'url_to_image_4',
+        id: 4
+    },
+    {
+      name: 'Genre 1',
+      img: 'url_to_image_1',
+      id: 1
+  },
+  {
+      name: 'Genre 2',
+      img: 'url_to_image_2',
+      id: 2
+  },
+  {
+      name: 'Genre 3',
+      img: 'url_to_image_3',
+      id: 3
+  },
+  {
+      name: 'Genre 4',
+      img: 'url_to_image_4',
+      id: 4
+  },
+  {
+    name: 'Genre 1',
+    img: 'url_to_image_1',
+    id: 1
+},
+{
+    name: 'Genre 2',
+    img: 'url_to_image_2',
+    id: 2
+},
+{
+    name: 'Genre 3',
+    img: 'url_to_image_3',
+    id: 3
+},
+{
+    name: 'Genre 4',
+    img: 'url_to_image_4',
+    id: 4
+}
+,{
+  name: 'Genre 1',
+  img: 'url_to_image_1',
+  id: 1
+},
+{
+  name: 'Genre 2',
+  img: 'url_to_image_2',
+  id: 2
+},
+{
+  name: 'Genre 3',
+  img: 'url_to_image_3',
+  id: 3
+},
+{
+  name: 'Genre 4',
+  img: 'url_to_image_4',
+  id: 4
+}
+];
+  const components = {
+    MainBodyGuest: <MainBodyGuest />,
+    GenreList: <GenreList items={items} />
+  }
+  
 
   useEffect(() => {
     const mainAccout = document.querySelector('.main-accout');
@@ -50,7 +140,7 @@ export const Home = () => {
   }
 
   const itemMenuSearchClicked = () => {
-
+    setActiveComponent('GenreList');
   }
 
   const buttonLoginClicked = () => {
@@ -78,13 +168,18 @@ export const Home = () => {
             <span className='font-bold text-[15px] text-gray-light m-3 mt-4 hover:text-white-primary transition'>Tìm kiếm</span>
           </div>
         </div>
-        <div className="wrapper__navigate-library w-ful flex-grow bg-black-secondary mt-3 rounded-md px-5 py-1">
-          <div className="flex flex-row items-center justify-between w-ful h-[50px]">
-            <div className="flex flex-row items-center w-ful h-[50px] cursor-pointer" onClick={itemMenuSearchClicked}>
-              <img className='w-[25px] h-[25px] ml-[3px]' src={LibraryIcon} alt="" />
-              <span className='font-bold text-[15px] text-gray-light m-3 mt-4 flex-grow hover:text-white-primary transition'>Thư viện</span>
+        <div className="wrapper__navigate-library w-ful flex-grow bg-black-secondary mt-3 rounded-md">
+          <div className="px-5 py-1">
+            <div className="flex flex-row items-center justify-between w-ful h-[50px]">
+              <div className="flex flex-row items-center w-ful h-[50px] cursor-pointer" onClick={itemMenuSearchClicked}>
+                <img className='w-[25px] h-[25px] ml-[3px]' src={LibraryIcon} alt="" />
+                <span className='font-bold text-[15px] text-gray-light m-3 mt-4 flex-grow hover:text-white-primary transition'>Thư viện</span>
+              </div>
+              <img className='w-9 h-9 p-[6px] rounded-[50%] hover:bg-[#333333]' src={PlusIcon} alt="" />
             </div>
-            <img className='w-9 h-9 p-[6px] rounded-[50%] hover:bg-[#333333]' src={PlusIcon} alt="" />
+          </div>
+          <div className="flex flex-row items-start justify-start w-full h-full">
+              <LibraryComponent />
           </div>
         </div>
       </div>
@@ -114,7 +209,7 @@ export const Home = () => {
         <div>
           <div className="wrapper__main-body flex-grow bg-gradient-to-b from-[#313131] to-black-secondary overflow-y-auto">
 
-            <MainBodyGuest />
+          {components[activeComponent]}
 
           </div>
           <div className="wrapper__main-footer ">
