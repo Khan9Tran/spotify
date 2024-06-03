@@ -21,12 +21,101 @@ import EmailLogo from '../../assets/images/email_logo.png'
 
 import { useNavigate } from 'react-router-dom'
 import { LibraryComponent } from '../../components/libraryComponent';
+import { GenreList } from '../../components/genreList';
 
 export const Home = () => {
 
   const navigate = useNavigate();
   const [logined, setLogined] = useState(false);
   const token = Cookies.get('authToken');
+  const [activeComponent, setActiveComponent] = useState('MainBodyGuest')
+  const items = [
+    {
+        name: 'Genre 1',
+        img: 'url_to_image_1',
+        id: 1
+    },
+    {
+        name: 'Genre 2',
+        img: 'url_to_image_2',
+        id: 2
+    },
+    {
+        name: 'Genre 3',
+        img: 'url_to_image_3',
+        id: 3
+    },
+    {
+        name: 'Genre 4',
+        img: 'url_to_image_4',
+        id: 4
+    },
+    {
+      name: 'Genre 1',
+      img: 'url_to_image_1',
+      id: 1
+  },
+  {
+      name: 'Genre 2',
+      img: 'url_to_image_2',
+      id: 2
+  },
+  {
+      name: 'Genre 3',
+      img: 'url_to_image_3',
+      id: 3
+  },
+  {
+      name: 'Genre 4',
+      img: 'url_to_image_4',
+      id: 4
+  },
+  {
+    name: 'Genre 1',
+    img: 'url_to_image_1',
+    id: 1
+},
+{
+    name: 'Genre 2',
+    img: 'url_to_image_2',
+    id: 2
+},
+{
+    name: 'Genre 3',
+    img: 'url_to_image_3',
+    id: 3
+},
+{
+    name: 'Genre 4',
+    img: 'url_to_image_4',
+    id: 4
+}
+,{
+  name: 'Genre 1',
+  img: 'url_to_image_1',
+  id: 1
+},
+{
+  name: 'Genre 2',
+  img: 'url_to_image_2',
+  id: 2
+},
+{
+  name: 'Genre 3',
+  img: 'url_to_image_3',
+  id: 3
+},
+{
+  name: 'Genre 4',
+  img: 'url_to_image_4',
+  id: 4
+}
+];
+  const components = {
+    MainBodyGuest: <MainBodyGuest />,
+    GenreList: <GenreList items={items} />
+  }
+  
 
   useEffect(() => {
     const mainAccout = document.querySelector('.main-accout');
@@ -51,7 +140,7 @@ export const Home = () => {
   }
 
   const itemMenuSearchClicked = () => {
-
+    setActiveComponent('GenreList');
   }
 
   const buttonLoginClicked = () => {
@@ -89,7 +178,7 @@ export const Home = () => {
               <img className='w-9 h-9 p-[6px] rounded-[50%] hover:bg-[#333333]' src={PlusIcon} alt="" />
             </div>
           </div>
-          <div className="flex flex-row items-center justify-between w-full h-full">
+          <div className="flex flex-row items-start justify-start w-full h-full">
               <LibraryComponent />
           </div>
         </div>
@@ -119,7 +208,7 @@ export const Home = () => {
         </div>
         <div className="wrapper__main-body flex-grow bg-gradient-to-b from-[#313131] to-black-secondary">
 
-          <MainBodyGuest />
+          {components[activeComponent]}
 
         </div>
         <div className="wrapper__main-footer ">
