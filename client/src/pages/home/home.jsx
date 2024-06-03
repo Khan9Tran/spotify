@@ -63,7 +63,7 @@ export const Home = () => {
 
 
   return (
-    <div className='wrapper w-screen min-h-screen bg-black-primary overflow-y-auto flex flex-row'>
+    <div className='wrapper w-screen h-screen bg-black-primary flex flex-row'>
       <div className="wrapper__navigate w-[360px] h-ful flex flex-col sm:w-[420px] m-3">
         <div className="wrapper__navigate-menu w-full bg-black-secondary rounded-md p-5">
           <div className="w-fit h-[40px] cursor-pointer" onClick={logoHandleClick}>
@@ -90,7 +90,7 @@ export const Home = () => {
       </div>
 
       <div className="wrapper__main flex-grow h-ful flex flex-col my-3 mr-3 rounded-md bg-black-secondary">
-        <div className="wrapper__main-header h-[64px] flex flex-row">
+        <div className="wrapper__main-header min-h-[64px] flex flex-row z-10 bg-black-secondary">
           <div className="main-navigate flex flex-row items-center px-7">
             <div className='w-[30px] h-[30px] rounded-[50%] bg-black-primary mr-2 cursor-pointer flex justify-center items-center'>
               <IconPrevious width={'20px'} height={'23px'} fill={'#ffffff'} />
@@ -111,60 +111,62 @@ export const Home = () => {
             </div>
           </div>
         </div>
-        <div className="wrapper__main-body flex-grow bg-gradient-to-b from-[#313131] to-black-secondary">
+        <div>
+          <div className="wrapper__main-body flex-grow bg-gradient-to-b from-[#313131] to-black-secondary overflow-y-auto">
 
-          <MainBodyGuest />
+            <MainBodyGuest />
 
-        </div>
-        <div className="wrapper__main-footer ">
-          <div className="footer-link">
-            <div className="link-company">
-              <span>Công ty</span>
-              <a href="#" alt="">Giới thiệu</a>
-              <a href="#" alt="">Việc làm</a>
-              <a href="#" alt="">For the Record</a>
-            </div>
-            <div className="link-communicate">
-              <span>Cộng đồng</span>
-              <a href="#" alt="">Dành cho các Nghệ sĩ</a>
-              <a href="#" alt="">Nhà phát triển</a>
-              <a href="#" alt="">Quảng cáo</a>
-              <a href="#" alt="">Nhà đầu tư</a>
-              <a href="#" alt="">Nhà cung cấp</a>
-            </div>
-            <div className="link-useful">
-              <span>Liên kết hữu ích</span>
-              <a href="#" alt="">Hỗ trợ </a>
-              <a href="#" alt="">Ứng dụng Di động Miễn phí </a>
-            </div>
-            <div className="link-package">
-              <span>Các gói của Spootify</span>
-              <a href="#" alt="">Premium Individual</a>
-              <a href="#" alt="">Premium Student</a>
-              <a href="#" alt="">Spotify Free</a>
-            </div>
           </div>
-          <div className="footer-social">
-            <div className="owner">
-              <img src={ThanhHuy} alt="" />
-              <div className="owner-link">
-                <a href="https://www.facebook.com/profile.php?id=100024283741045" alt="">
-                  <img src={FacebookLogo} alt="" />
-                </a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nguyenhuythanh256@gmail.com" alt="" target='_ blank'>
-                  <img src={EmailLogo} alt="" />
-                </a>
+          <div className="wrapper__main-footer ">
+            <div className="footer-link">
+              <div className="link-company">
+                <span>Công ty</span>
+                <a href="#" alt="">Giới thiệu</a>
+                <a href="#" alt="">Việc làm</a>
+                <a href="#" alt="">For the Record</a>
+              </div>
+              <div className="link-communicate">
+                <span>Cộng đồng</span>
+                <a href="#" alt="">Dành cho các Nghệ sĩ</a>
+                <a href="#" alt="">Nhà phát triển</a>
+                <a href="#" alt="">Quảng cáo</a>
+                <a href="#" alt="">Nhà đầu tư</a>
+                <a href="#" alt="">Nhà cung cấp</a>
+              </div>
+              <div className="link-useful">
+                <span>Liên kết hữu ích</span>
+                <a href="#" alt="">Hỗ trợ </a>
+                <a href="#" alt="">Ứng dụng Di động Miễn phí </a>
+              </div>
+              <div className="link-package">
+                <span>Các gói của Spootify</span>
+                <a href="#" alt="">Premium Individual</a>
+                <a href="#" alt="">Premium Student</a>
+                <a href="#" alt="">Spotify Free</a>
               </div>
             </div>
-            <div className="owner">
-              <img src={NhutKhang} alt="" />
-              <div className="owner-link">
-                <a href="https://www.facebook.com/tlnKhan9.oliver" alt="">
-                  <img src={FacebookLogo} alt="" />
-                </a>
-                <a href="" alt="">
-                  <img src={EmailLogo} alt="" />
-                </a>
+            <div className="footer-social">
+              <div className="owner">
+                <img src={ThanhHuy} alt="" />
+                <div className="owner-link">
+                  <a href="https://www.facebook.com/profile.php?id=100024283741045" alt="">
+                    <img src={FacebookLogo} alt="" />
+                  </a>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nguyenhuythanh256@gmail.com" alt="" target='_ blank'>
+                    <img src={EmailLogo} alt="" />
+                  </a>
+                </div>
+              </div>
+              <div className="owner">
+                <img src={NhutKhang} alt="" />
+                <div className="owner-link">
+                  <a href="https://www.facebook.com/tlnKhan9.oliver" alt="">
+                    <img src={FacebookLogo} alt="" />
+                  </a>
+                  <a href="" alt="">
+                    <img src={EmailLogo} alt="" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
