@@ -8,6 +8,7 @@ import IconNext from '../../components/iconNext'
 import IconPrevious from '../../components/iconPrevious'
 import Button from '../../components/button'
 import MainBodyGuest from '../../components/mainBodyGuest'
+import Search from '../../components/searchComponent'
 
 import HomeIcon from '../../assets/images/home_icon.png'
 import SearchIcon from '../../assets/images/search_icon.png'
@@ -136,7 +137,7 @@ export const Home = () => {
   }
 
   const itemMenuHomeClicked = () => {
-
+    setActiveComponent('MainBodyGuest');
   }
 
   const itemMenuSearchClicked = () => {
@@ -193,6 +194,9 @@ export const Home = () => {
             <div className='w-[30px] h-[30px] rounded-[50%] bg-black-primary cursor-pointer flex justify-center items-center'>
               <IconNext width={'20px'} height={'23px'} fill={'#aaaaaa'} />
             </div>
+          </div>
+          <div className='wrapper__main-header justify-start py-2 px-5 translate-x-[-30px]'>
+            {activeComponent === 'GenreList' ? <Search /> : null}
           </div>
           <div className="main-accout flex flex-row justify-end items-center flex-grow">
             <div className='accout-login-register hidden flex-row justify-center items-center py-2 px-5'>

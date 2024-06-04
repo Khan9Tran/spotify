@@ -8,7 +8,6 @@ import ChartsComponent from './chartsComponent';
 const MainBodyGuest = () => {
     const containerRef = useRef(null);
     const [numberOfItems, setNumberOfArtists] = useState(6);
-
     useEffect(() => {
         const handleResize = (entries) => {
             for (let entry of entries) {
