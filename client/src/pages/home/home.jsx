@@ -31,91 +31,91 @@ export const Home = () => {
   const [activeComponent, setActiveComponent] = useState('MainBodyGuest')
   const items = [
     {
-        name: 'Genre 1',
-        img: 'url_to_image_1',
-        id: 1
+      name: 'Genre 1',
+      img: 'url_to_image_1',
+      id: 1
     },
     {
-        name: 'Genre 2',
-        img: 'url_to_image_2',
-        id: 2
+      name: 'Genre 2',
+      img: 'url_to_image_2',
+      id: 2
     },
     {
-        name: 'Genre 3',
-        img: 'url_to_image_3',
-        id: 3
+      name: 'Genre 3',
+      img: 'url_to_image_3',
+      id: 3
     },
     {
-        name: 'Genre 4',
-        img: 'url_to_image_4',
-        id: 4
+      name: 'Genre 4',
+      img: 'url_to_image_4',
+      id: 4
     },
     {
       name: 'Genre 1',
       img: 'url_to_image_1',
       id: 1
-  },
-  {
+    },
+    {
       name: 'Genre 2',
       img: 'url_to_image_2',
       id: 2
-  },
-  {
+    },
+    {
       name: 'Genre 3',
       img: 'url_to_image_3',
       id: 3
-  },
-  {
+    },
+    {
       name: 'Genre 4',
       img: 'url_to_image_4',
       id: 4
-  },
-  {
-    name: 'Genre 1',
-    img: 'url_to_image_1',
-    id: 1
-},
-{
-    name: 'Genre 2',
-    img: 'url_to_image_2',
-    id: 2
-},
-{
-    name: 'Genre 3',
-    img: 'url_to_image_3',
-    id: 3
-},
-{
-    name: 'Genre 4',
-    img: 'url_to_image_4',
-    id: 4
-}
-,{
-  name: 'Genre 1',
-  img: 'url_to_image_1',
-  id: 1
-},
-{
-  name: 'Genre 2',
-  img: 'url_to_image_2',
-  id: 2
-},
-{
-  name: 'Genre 3',
-  img: 'url_to_image_3',
-  id: 3
-},
-{
-  name: 'Genre 4',
-  img: 'url_to_image_4',
-  id: 4
-}
-];
+    },
+    {
+      name: 'Genre 1',
+      img: 'url_to_image_1',
+      id: 1
+    },
+    {
+      name: 'Genre 2',
+      img: 'url_to_image_2',
+      id: 2
+    },
+    {
+      name: 'Genre 3',
+      img: 'url_to_image_3',
+      id: 3
+    },
+    {
+      name: 'Genre 4',
+      img: 'url_to_image_4',
+      id: 4
+    }
+    , {
+      name: 'Genre 1',
+      img: 'url_to_image_1',
+      id: 1
+    },
+    {
+      name: 'Genre 2',
+      img: 'url_to_image_2',
+      id: 2
+    },
+    {
+      name: 'Genre 3',
+      img: 'url_to_image_3',
+      id: 3
+    },
+    {
+      name: 'Genre 4',
+      img: 'url_to_image_4',
+      id: 4
+    }
+  ];
   const components = {
     MainBodyGuest: <MainBodyGuest />,
     GenreList: <GenreList items={items} />
   }
-  
+
 
   useEffect(() => {
     const mainAccout = document.querySelector('.main-accout');
@@ -179,13 +179,13 @@ export const Home = () => {
             </div>
           </div>
           <div className="flex flex-row items-start justify-start w-full h-full">
-              <LibraryComponent />
+            <LibraryComponent />
           </div>
         </div>
       </div>
 
       <div className="wrapper__main min-w-[520px] flex-grow h-ful flex flex-col my-3 mr-3 rounded-md bg-black-secondary">
-        <div className="wrapper__main-header min-h-[64px] flex flex-row z-10 bg-black-secondary">
+        <div className="wrapper__main-header min-h-[64px] flex flex-row items-center z-10 bg-black-secondary">
           <div className="main-navigate min-w-[120px] flex flex-row items-center px-7">
             <div className='w-[30px] h-[30px] rounded-[50%] bg-black-primary mr-2 cursor-pointer flex justify-center items-center'>
               <IconPrevious width={'20px'} height={'23px'} fill={'#ffffff'} />
@@ -194,6 +194,15 @@ export const Home = () => {
               <IconNext width={'20px'} height={'23px'} fill={'#aaaaaa'} />
             </div>
           </div>
+          <div class="main-search w-1/4 h-[47px] rounded-[70px] bg-[#2a2a2a] flex flex-row justify-center items-center px-2 border-[2px] border-transparent hover:border-gray-light">
+            <div class="search-icon mr-1">
+              <img src={SearchIcon} alt="" />
+            </div>
+            <div class="search-input flex-grow">
+              <input className='outline-none w-full bg-transparent text-[13px]' placeholder='Bạn muốn phát nội dung gì?' type="text" />
+            </div>
+          </div>
+
           <div className="main-accout flex flex-row justify-end items-center flex-grow">
             <div className='accout-login-register hidden flex-row justify-center items-center py-2 px-5'>
               <Button width={'120px'} height={'48px'} label={'Đăng ký'} radius={'70px'} fontStyle={'font-bold'} fontSize={'15px'} scaleWhenHoverd={true} backgroundColor={'transparent'} onClick={buttonRegisterClicked} />
@@ -209,7 +218,7 @@ export const Home = () => {
         <div>
           <div className="wrapper__main-body flex-grow bg-gradient-to-b from-[#313131] to-black-secondary overflow-y-auto">
 
-          {components[activeComponent]}
+            {components[activeComponent]}
 
           </div>
           <div className="wrapper__main-footer ">
