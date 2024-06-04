@@ -3,6 +3,7 @@ import BodyComponentTittle from './bodyComponentTittle';
 import ArtistComponent from './artistComponent';
 import AlbumComponent from './albumComponent';
 import RadioComponent from './radioComponent';
+import ChartsComponent from './chartsComponent';
 
 const MainBodyGuest = () => {
     const containerRef = useRef(null);
@@ -116,7 +117,25 @@ const MainBodyGuest = () => {
                 <div className="body-component-tittle">
                     <BodyComponentTittle width={'w-ful'} tittle={'Bảng xếp hạng Nổi bật'} seeAllText={'Hiện tất cả'} />
                 </div>
-                <div className="body-component-content">
+                <div ref={containerRef} className="body-component-content w-full h-auto px-3 flex flex-row flex-grow overflow-hidden">
+                    <div className={numberOfItems < 1 ? 'hidden' : ''}>
+                        <ChartsComponent />
+                    </div>
+                    <div className={numberOfItems < 2 ? 'hidden' : ''}>
+                        <ChartsComponent />
+                    </div>
+                    <div className={numberOfItems < 3 ? 'hidden' : ''}>
+                        <ChartsComponent />
+                    </div>
+                    <div className={numberOfItems < 4 ? 'hidden' : ''}>
+                        <ChartsComponent />
+                    </div>
+                    <div className={numberOfItems < 5 ? 'hidden' : ''}>
+                        <ChartsComponent />
+                    </div>
+                    <div className={numberOfItems < 6 ? 'hidden' : ''}>
+                        <ChartsComponent />
+                    </div>
                 </div>
             </div>
         </div>
