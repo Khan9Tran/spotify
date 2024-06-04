@@ -7,15 +7,15 @@ const ArtistComponent = ({ imageURL, name, profession, handleItemClicked }) => {
 
     return (
         <div
-            className=' max-w-[240px] min-w-[150px] flex flex-col justify-start p-5 rounded-md hover:bg-[#313131] relative'
+            className=' max-w-[240px] min-w-[150px] flex flex-col justify-start p-5 rounded-md hover:bg-[#313131] relative cursor-pointer'
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             <img className='w-full h-auto min-w-[130px] rounded-[50%]' src={imageURL !== undefined ? imageURL : DefaultImage} alt="" />
-            <span className='text-white-primary text-[18px] font-bold mt-1'>
+            <span className='text-white-primary text-[18px] font-bold mt-1 truncate'>
                 {name !== undefined ? name : 'Artist name'}
             </span>
-            <span className='text-gray-light text-[13px]'>
+            <span className='text-gray-light text-[13px] truncate'>
                 {profession !== undefined ? profession : 'Artist'}
             </span>
 

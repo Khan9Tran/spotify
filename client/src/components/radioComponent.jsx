@@ -17,7 +17,7 @@ const RadioComponent = ({ imageURL1, imageURL2, imageURL3, name, artists, handle
 
     return (
         <div
-            className=' max-w-[240px] min-w-[150px] flex flex-col justify-start p-3 rounded-md hover:bg-[#313131] relative'
+            className=' max-w-[240px] min-w-[150px] flex flex-col justify-start p-3 rounded-md hover:bg-[#313131] relative cursor-pointer'
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
             <div className='w-full h-auto min-w-[130px] rounded-md py-2' style={{ backgroundColor: color }}>
@@ -30,15 +30,15 @@ const RadioComponent = ({ imageURL1, imageURL2, imageURL3, name, artists, handle
                     <img className="w-3/5 h-auto rounded-full  border-[4px] absolute z-10 top-[50%] left-[50%] transform -translate-y-1/2 -translate-x-1/2" style={{ borderColor: color }} src={imageURL2 !== undefined ? imageURL2 : DefaultImage} alt="" />
                     <img className="w-2/5 h-auto rounded-full transform translate-x-1/4" src={imageURL3 !== undefined ? imageURL3 : DefaultImage} alt="" />
                 </div>
-                <span className='font-bold text-[23px] mx-2 text-black-primary'>
+                <span className='font-bold text-[23px] mx-2 text-black-primary truncate'>
                     {name !== undefined ? name : 'Name'}
                 </span>
 
             </div>
-            <span className='text-white-primary text-[15px] font-bold mt-1'>
+            <span className='text-white-primary text-[15px] font-bold mt-1 truncate'>
                 {name !== undefined ? name + ' radio' : 'Name radio'}
             </span>
-            <span className='text-gray-light text-[13px]'>
+            <span className='text-gray-light text-[13px] truncate'>
                 {artists !== undefined ? 'Với ' + artists : 'Với artists'}
             </span>
 
