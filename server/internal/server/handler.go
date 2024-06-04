@@ -4,7 +4,9 @@ import (
 	authHttp "spotify/internal/auth/delivery/http"
 	"spotify/internal/auth/repository"
 	"spotify/internal/auth/usecase"
-
+	emailRepository "spotify/internal/email/repository"
+	emailUseCase "spotify/internal/email/usecase"
+	emailHttp "spotify/internal/email/delivery/http"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -26,4 +28,10 @@ func (mh *MapHandler) Map() {
 	authUseCase := usecase.NewAuthUseCase(userRepo, accountRepo)
 	authHandler := authHttp.NewAuthHandler(authUseCase)
 	authHttp.MapAuthRoutes(authGroup, authHandler)
+
+
+	emailRepo := emailRepository.NewEmailRepository(mh.db)
+	emailUseCase := emailUseCase.NewEmailUseCase(emailRepo)
+	emailHandler := emailHttp.NewEmailHandler(emailUseCase)
+	emailHttp.MapEmailRoutes(authGroup, emailHandler)
 }

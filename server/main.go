@@ -36,7 +36,7 @@ func initStorage(db *gorm.DB){
 		log.Fatal(err)
 	}
 
-	err = db.AutoMigrate(&models.Account{}, &models.Users{}, &models.Artist{}, &models.Follows{}, &models.Song{}, &models.PerformsOnSong{}, &models.Album{}, &models.Playlist{}, &models.AlbumTrack{}, &models.PlaylistTrack{}, &models.ListeningHistory{}, &models.Review{})
+	err = db.AutoMigrate(&models.Account{}, &models.Users{}, &models.Artist{}, &models.Follows{}, &models.Song{}, &models.PerformsOnSong{}, &models.Album{}, &models.Playlist{}, &models.AlbumTrack{}, &models.PlaylistTrack{}, &models.ListeningHistory{}, &models.Review{}, &models.Token{},)
 	if err != nil {
 		log.Fatal(err)
 	}
