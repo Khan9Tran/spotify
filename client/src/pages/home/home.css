@@ -82,3 +82,17 @@
     border-radius: 50%;
     background-color: black;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: theme('colors.gray-dark'); 
+    border-radius: 10px;
+}
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.gray-light');
+}

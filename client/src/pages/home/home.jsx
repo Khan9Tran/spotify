@@ -154,8 +154,8 @@ export const Home = () => {
 
   return (
     <div className='wrapper w-screen h-screen bg-black-primary flex flex-row'>
-      <div className="wrapper__navigate w-[360px] h-ful flex flex-col sm:w-[420px] m-3">
-        <div className="wrapper__navigate-menu w-full bg-black-secondary rounded-md p-5">
+      <div className="wrapper__navigate min-w-[360px] h-ful flex flex-col xl:min-w-[420px] m-3">
+        <div className="wrapper__navigate-menu w-full bg-black-secondary rounded-md p-5 overflow-hidden">
           <div className="w-fit h-[40px] cursor-pointer" onClick={logoHandleClick}>
             <LogoAndText />
           </div>
@@ -168,7 +168,7 @@ export const Home = () => {
             <span className='font-bold text-[15px] text-gray-light m-3 mt-4 hover:text-white-primary transition'>Tìm kiếm</span>
           </div>
         </div>
-        <div className="wrapper__navigate-library w-ful flex-grow bg-black-secondary mt-3 rounded-md">
+        <div className="wrapper__navigate-library w-ful flex-grow bg-black-secondary mt-3 rounded-md overflow-hidden">
           <div className="px-5 py-1">
             <div className="flex flex-row items-center justify-between w-ful h-[50px]">
               <div className="flex flex-row items-center w-ful h-[50px] cursor-pointer" onClick={itemMenuSearchClicked}>
@@ -184,9 +184,9 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="wrapper__main flex-grow h-ful flex flex-col my-3 mr-3 rounded-md bg-black-secondary">
+      <div className="wrapper__main min-w-[520px] flex-grow h-ful flex flex-col my-3 mr-3 rounded-md bg-black-secondary">
         <div className="wrapper__main-header min-h-[64px] flex flex-row z-10 bg-black-secondary">
-          <div className="main-navigate flex flex-row items-center px-7">
+          <div className="main-navigate min-w-[120px] flex flex-row items-center px-7">
             <div className='w-[30px] h-[30px] rounded-[50%] bg-black-primary mr-2 cursor-pointer flex justify-center items-center'>
               <IconPrevious width={'20px'} height={'23px'} fill={'#ffffff'} />
             </div>
@@ -240,7 +240,7 @@ export const Home = () => {
                 <a href="#" alt="">Spotify Free</a>
               </div>
             </div>
-            <div className="footer-social">
+            <div className="footer-social min-w-[160px]">
               <div className="owner">
                 <img src={ThanhHuy} alt="" />
                 <div className="owner-link">
