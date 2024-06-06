@@ -8,15 +8,16 @@ import { BasicFooter } from "../../components/footer";
 export const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [inputError, setInputError] = useState(false);
-
+    const [alert, setAlert] = useState({ show: false, message: '', type: 'success'});
+    const [isLoading, setIsLoading] = useState(false);
     const buttonGetLinkClicked = async (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         if (inputError) {
             return;
         }
 
-        const response = await fetch('http://localhost:8080/v1/auth/forgot-password', {
+        const response = await fetch('http://localhost:8080/v1/auth/password-reset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,13 +27,36 @@ export const ForgotPassword = () => {
             })
         });
 
+        const data = await response.json();
+        if (response.ok){
+            setAlert({ show: true, message: data.message });
+        }
+        else {
+            setAlert({ show: true, message:"Email klhông hợp lệ, vui lòng thử lại", type: 'error' });
+        }
+        
+        setIsLoading(false);
+
     }
     return (
         <div className="wrapper bg-black-secondary w-screen min-h-screen flex flex-col overflow-y-auto items-center ">
+            {isLoading && (
+                <div className="loading-overlay">
+                    <div className="dots">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            )}
             <div className="wrapper--header w-full h-[96px] flex items-center pl-7">
                 <Logo/>
             </div>
-
+            {alert.show && (
+            <div className={`alert m-5 ${alert.type === 'error' ? 'text-red-light' : 'text-green-light'}`}>
+            {alert.message}
+            </div>
+            )}
             <div className="wrapper--body w-[310px] auto">
                 <h1 className="text-white-primary sm:text-[30px] font-bold mb-5">
                 Đặt lại mật khẩu của bạn

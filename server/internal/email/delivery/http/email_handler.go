@@ -43,7 +43,8 @@ func (e *emailHandler) SendMail() gin.HandlerFunc {
 			return
 		}
 
-		if err  := e.useCase.SendMail(&gin.Context{}, emailInput.Email); err != nil {
+		err  := e.useCase.SendMail(&gin.Context{}, emailInput.Email)
+		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"status":  "fail",
 				"message": err.Error(),
@@ -52,7 +53,7 @@ func (e *emailHandler) SendMail() gin.HandlerFunc {
 		}
 		c.JSON(http.StatusOK, gin.H{
 			"status":  "success",
-			"message": "Email sent",
+			"message": "Email sent successfully",
 		})
 
 	}

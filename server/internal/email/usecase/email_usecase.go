@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"net/smtp"
 	"spotify/config"
 	"spotify/internal/email"
 	"spotify/internal/security"
@@ -17,7 +18,7 @@ func NewEmailUseCase(emailRepo email.EmailRepo) email.UseCase{
 	}
 }
 
-func (e *emailUseCase) SendMail(ctx context.Context, email string) error{
+func (e *emailUseCase) SendMail(ctx context.Context, email string) (error){
 	user, err := e.emailRepo.GetUserByEmail(ctx, email)
 	if err != nil {
 		return err
@@ -33,6 +34,34 @@ func (e *emailUseCase) SendMail(ctx context.Context, email string) error{
 	if err != nil {
 		return err
 	}
-	
+
+
+
+	return sendToken(token, email)
+}
+
+func sendToken(token, email string) (error){
+
+
+		
+	auth := smtp.PlainAuth("", "trankhangtctv@gmail.com", "xxkcmmxetddvycdt", "smtp.gmail.com")
+
+	// Here we do it all: connect to our server, set up a message and send it
+
+	to := []string{email}
+
+	msg := []byte("To: " + email + "\r\n" +
+
+	"Subject: Your link reset password\r\n" +
+
+	"\r\n" + "http://localhost:3000/new-password/"+ token + "\r\n")
+
+	err := smtp.SendMail("smtp.gmail.com:587", auth, email, to, msg)
+
+	if err != nil {
+
+		return err
+	}
 	return nil
 }
+
