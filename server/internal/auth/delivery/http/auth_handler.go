@@ -106,3 +106,40 @@ func (h *authHandler) Login() gin.HandlerFunc {
 		c.JSON(http.StatusOK, presenter.LoginResponse{Token: token})
 	}
 }
+
+func (h *authHandler) NewPassword() gin.HandlerFunc{
+	return func (c *gin.Context){ 
+
+		newPasswordPayload := &presenter.NewPassword{}
+		if err := c.ShouldBindJSON(newPasswordPayload); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"status": "fail",
+				"error":  err.Error(),
+			})
+			return
+		}
+		if err := utils.Validate.Struct(newPasswordPayload); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"status":  "fail",
+				"message": "Dữ liệu nhập chưa chính xác. Vui lòng kiểm tra lại!!!",
+			})
+			return
+
+		}
+
+		err := h.userCase.NewPassword(c.Request.Context(), newPasswordPayload.Token, newPasswordPayload.Password, newPasswordPayload.ConfirmPassword)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"status": "fail",
+				"message": err.Error(),
+			})
+			return
+		
+		}
+		
+		c.JSON(http.StatusOK, gin.H{
+			"status": "success",
+			"message": "Thay đổi mật khẩu thành công",
+		})
+	}
+}

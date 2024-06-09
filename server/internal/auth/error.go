@@ -9,4 +9,5 @@ var (
 	ErrInvalidAccessToken = errors.New("invalid access token")
 	ErrPasswordNotMatch  = errors.New("password not match")
 	ErrInternalServer	 = errors.New("internal server error")
+	ErrTokenNotFound = errors.New("token not found")
 )

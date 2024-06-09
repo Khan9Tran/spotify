@@ -33,6 +33,6 @@ func (e *emailRepository) GetUserByEmail(ctx context.Context,email string) (*mod
 }
 
 
-func (e *emailRepository) CreateToken(ctx context.Context, u models.Users, token string, expiredAt time.Time) (error) {
-	return e.db.WithContext(ctx).Create(&models.Token{UserID: u.ID, Token: token, ExpiresAt: expiredAt}).Error
+func (e *emailRepository) CreateToken(ctx context.Context, u models.Users, token string, expiredAt time.Time, purpose string) (error) {
+	return e.db.WithContext(ctx).Create(&models.Token{UserID: u.ID, Token: token, ExpiresAt: expiredAt, Purpose: purpose}).Error
 }

@@ -3,6 +3,7 @@ package security
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 	"spotify/config"
 	"strconv"
 	"strings"
@@ -34,7 +35,7 @@ func CreateJWTResetPassword(secret []byte, userID int, password string) (string,
 		"userID":    strconv.Itoa(userID),
 		"expiredAt": expiredAt.Unix(),
 		"purpose":     "reset_password",
-		"key": strings.Split(hash(password), "")[0:6],
+		"key": PasswordToKey(password),
 	})
 
 	tokenString, err := token.SignedString(secret)
@@ -49,4 +50,24 @@ func hash(input string) string {
     hashed := md5.New()
     hashed.Write([]byte(input))
     return hex.EncodeToString(hashed.Sum(nil))
+}
+
+func ParseJWT(secret []byte, tokenString string) (jwt.MapClaims, error) { 
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return []byte(secret), nil
+	})
+	if err != nil {
+		return nil, fmt.Errorf("internal server error")
+	}
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		return claims , nil
+	} 
+	return nil, fmt.Errorf("internal server error")
+}
+
+func PasswordToKey(password string) []string {
+	return strings.Split(hash(password), "")[0:6]
 }

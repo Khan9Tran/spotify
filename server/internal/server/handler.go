@@ -25,7 +25,8 @@ func (mh *MapHandler) Map() {
 
 	accountRepo := repository.NewAccountRepository(mh.db)
 	userRepo := repository.NewUserRepository(mh.db)
-	authUseCase := usecase.NewAuthUseCase(userRepo, accountRepo)
+	tokeRepo := repository.NewTokenRepository(mh.db)
+	authUseCase := usecase.NewAuthUseCase(userRepo, accountRepo, tokeRepo)
 	authHandler := authHttp.NewAuthHandler(authUseCase)
 	authHttp.MapAuthRoutes(authGroup, authHandler)
 

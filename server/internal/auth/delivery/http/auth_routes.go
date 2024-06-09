@@ -9,4 +9,5 @@ import (
 func MapAuthRoutes(authGroup *gin.RouterGroup, handler auth.Handler) {
 	authGroup.POST("/register", handler.Register())
 	authGroup.POST("/login", handler.Login())
+	authGroup.POST("/new-password", handler.NewPassword())
 }

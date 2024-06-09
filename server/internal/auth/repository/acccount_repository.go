@@ -13,17 +13,21 @@ type accountRepository struct {
 }
 
 func NewAccountRepository(db *gorm.DB) auth.AccountRepo {
-	return &userRepository{db: db}
+	return &accountRepository{db: db}
 }
 
-func (r *userRepository) CreateAccount(ctx context.Context, account *models.Account) error {
+func (r *accountRepository) CreateAccount(ctx context.Context, account *models.Account) error {
 	return r.db.WithContext(ctx).Create(account).Error
 }
 
-func (r *userRepository) GetAccountByEmail(ctx context.Context, email string) (*models.Account, error) {
+func (r *accountRepository) GetAccountByEmail(ctx context.Context, email string) (*models.Account, error) {
 	var account models.Account
 	if err := r.db.WithContext(ctx).Where(&models.Account{Email:email,}).First(&account).Error; err != nil {
 		return nil, err
 	}
 	return &account, nil
+}
+
+func (r *accountRepository) Update(ctx context.Context, account *models.Account) error {
+    return r.db.WithContext(ctx).Save(account).Error
 }

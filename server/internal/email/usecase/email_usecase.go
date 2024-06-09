@@ -30,7 +30,7 @@ func (e *emailUseCase) SendMail(ctx context.Context, email string) (error){
 		return err
 	}
 
-	err = e.emailRepo.CreateToken(ctx, *user, token, expiredAt)
+	err = e.emailRepo.CreateToken(ctx, *user, token, expiredAt, "reset_password")
 	if err != nil {
 		return err
 	}

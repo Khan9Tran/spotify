@@ -8,5 +8,5 @@ import (
 
 type EmailRepo interface{
 	GetUserByEmail(ctx context.Context,email string) (*models.Users, error)
-	CreateToken(ctx context.Context, u models.Users, token string, expiredAt time.Time) (error)
+	CreateToken(ctx context.Context, u models.Users, token string, expiredAt time.Time, purpose string) (error)
 }
